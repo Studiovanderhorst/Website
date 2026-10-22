@@ -1,0 +1,11 @@
+/* Draw the original geometric strokes once, without delaying navigation. */
+.header .logo-drawing{display:block;width:100%;height:100%;overflow:visible}
+.logo-pen{fill:none;stroke:#fff;stroke-width:90;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:0}
+@media(prefers-reduced-motion:no-preference){
+ .logo-pen{animation:logo-write .55s cubic-bezier(.4,0,.2,1) both}
+ .logo-pen-v{animation-delay:.12s}
+ .logo-pen-d{animation-delay:.48s;animation-duration:.85s}
+ .logo-pen-h-left{animation-delay:1.14s;animation-duration:.5s}
+ .logo-pen-h-right{animation-delay:1.48s;animation-duration:.42s}
+}
+@keyframes logo-write{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}

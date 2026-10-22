@@ -1,0 +1,5 @@
+[build]
+  publish = "outputs/dist"
+
+# Statische HTML/CSS/JavaScript: geen buildopdracht of functions nodig.
+# Formulieren blijven via de bestaande Formspree-endpoints werken.

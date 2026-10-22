@@ -1,0 +1,7 @@
+.terms-hero h1{max-width:100%;font-size:clamp(2.5rem,5.5vw,5rem)}
+.terms-hero .terms-intro{max-width:72ch;margin-top:20px;font-size:1rem;line-height:1.65;color:var(--muted)}
+.terms-download{margin-top:28px;gap:20px}
+.terms-copy{max-width:850px;padding-top:12px}
+.terms-copy h2{padding-top:30px;border-top:1px solid var(--line);margin:38px 0 22px;line-height:1.3;letter-spacing:-.025em;color:var(--ink)}
+.terms-copy p{max-width:none;margin:0 0 18px;line-height:1.8}
+@media print{.header,.footer,.skip,dialog,.terms-download,.terms-hero .eyebrow{display:none!important}body{background:white;color:black}.wrap{width:100%;max-width:none}.terms-hero{padding:0!important}.terms-copy{padding:0}.terms-copy h2{break-after:avoid}.terms-copy p{orphans:3;widows:3}}

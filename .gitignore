@@ -1,0 +1,21 @@
+# Alleen publicatiebestanden en configuratie opnemen.
+/*
+!/.gitignore
+!/netlify.toml
+!/README.md
+!/outputs/
+/outputs/*
+!/outputs/dist/
+
+# Lokale gegevens en geheimen nooit opnemen.
+**/.env
+**/.env.*
+**/.DS_Store
+**/Thumbs.db
+**/node_modules/
+**/*.pem
+**/*.key
+**/*.p12
+**/*.pfx
+**/.npmrc
+**/.netrc

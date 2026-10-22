@@ -1,0 +1,284 @@
+<!doctype html><html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Werkplek Quickscan — Studio Van der Horst</title><meta name="robots" content="index,follow"><link rel="stylesheet" href="../styles.css"><link rel="stylesheet" href="scan.css"><script src="../app.js" defer></script><link rel="canonical" href="https://www.studiovanderhorst.nl/werkplekscan/"><link rel="stylesheet" href="../logo-motion.css"><script src="../logo-motion.js" defer></script><meta name="description" content="Doe de Werkplekscan en ontdek waar jullie kantoor kan verbeteren op het gebied van concentratie, samenwerking en werkplezier."></head><body><a class="skip" href="#main">Naar de inhoud</a><header class="header" id="top">
+  <a class="brand header-logo" href="../index.html" aria-label="Studio Van der Horst — home"><span class="logo-symbol" aria-hidden="true"><svg class="logo-drawing" viewBox="0 0 624 256" width="624" height="256" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+<defs>
+ <mask id="logo-draw-v" maskUnits="userSpaceOnUse" x="-10" y="-10" width="170" height="280"><path class="logo-pen logo-pen-v" d="M18 -28 L155 280" pathLength="1"/></mask>
+ <mask id="logo-draw-d" maskUnits="userSpaceOnUse" x="175" y="-10" width="220" height="280"><path class="logo-pen logo-pen-d" d="M175 20 H263 C395 20 395 236 263 236 H175" pathLength="1"/></mask>
+ <mask id="logo-draw-h" maskUnits="userSpaceOnUse" x="414" y="-10" width="220" height="280"><path class="logo-pen logo-pen-h-left" d="M444 280 V128 H610" pathLength="1"/><path class="logo-pen logo-pen-h-right" d="M604 -28 V280" pathLength="1"/></mask>
+</defs>
+<g fill="#edb73e">
+ <path mask="url(#logo-draw-v)" d="M0 0 H44 L142 208 L120 256 Z"/>
+ <path mask="url(#logo-draw-d)" d="M184 0 H263 C330 0 382 56 382 128 S330 256 263 256 H184 L226 213 H263 C306 213 340 176 340 128 S306 43 263 43 H226 Z"/>
+ <path mask="url(#logo-draw-h)" d="M424 150 L466 107 H584 V0 H624 V256 H584 V150 H466 V256 H424 Z"/>
+</g></svg></span><span class="logo-copy" aria-hidden="true"><span class="logo-studio">Studio</span><span class="logo-name">Van der Horst</span></span></a>
+  <button class="menu-toggle" aria-expanded="false" aria-controls="navigation">Menu <span aria-hidden="true">☰</span></button>
+  <nav id="navigation" aria-label="Hoofdnavigatie">
+    <details class="advice-menu"><summary>Werkplekadvies <span aria-hidden="true">⌄</span></summary><div class="advice-links"><a href="../kantoor-verhuizen/index.html">Kantoor verhuizen</a><a href="../kantoor-verbeteren/index.html">Kantoor verbeteren</a><a href="../index.html#scans">Scans</a></div></details>
+    <a href="../kantoorontwerp/index.html">Kantoorontwerp</a><a href="../projecten/index.html">Projecten</a><a href="../kennis/index.html">Kennis</a><a href="../over/index.html">Over Studio Van der Horst</a><a class="button" href="../index.html#contact">Kennismaken <span aria-hidden="true">↗</span></a>
+  </nav>
+</header><main id="main"><nav class="breadcrumb wrap" aria-label="Broodkruimel"><a href="../index.html">Home</a> / <span aria-current="page">Werkplekscan</span></nav><div class="scan-shell wrap">
+<div class="container">
+
+  <div class="progress-track"><div class="progress-fill" id="prog"></div></div>
+
+  <div class="fase-indicator">
+    <div class="fase-step active" id="fs1"><div class="fase-dot"></div> Quickscan</div>
+    <div class="fase-sep">→</div>
+    <div class="fase-step" id="fs2"><div class="fase-dot"></div> Rapport</div>
+    <div class="fase-sep">→</div>
+    <div class="fase-step" id="fs3"><div class="fase-dot"></div> Persoonlijk advies</div>
+  </div>
+
+  <!-- INTAKE -->
+  <div class="phase active" id="ph-intro">
+    <div class="cat-badge">Werkplek Quickscan</div>
+    <h1>In 5 minuten weet je waar jouw werkplek staat.</h1>
+    <p class="sub-text">Beantwoord 10 gerichte vragen over merkuitstraling, werkplekgebruik en werkbeleving. Je ontvangt direct een persoonlijk rapport — en op aanvraag een uitgebreid advies op maat.</p>
+    <div class="intro-visual">
+      <span class="intro-pill">Merkuitstraling</span>
+      <span class="intro-pill">Werkplekgebruik</span>
+      <span class="intro-pill">Werkbeleving</span>
+      <span class="intro-pill">Persoonlijk adviesrapport</span>
+    </div>
+    <div class="form-group"><label class="form-label">Jouw naam</label><input class="form-input" id="f-naam" placeholder="Voornaam en achternaam" autocomplete="name" /></div>
+    <div class="form-group"><label class="form-label">Bedrijfsnaam</label><input class="form-input" id="f-bedrijf" placeholder="Naam van je bedrijf" autocomplete="organization" /></div>
+    <div class="form-group"><label class="form-label">E-mailadres</label><input class="form-input" id="f-email" type="email" placeholder="jouw@bedrijf.nl" autocomplete="email" /></div>
+    <div class="nav"><span></span><button class="btn btn-primary" onclick="startScan()">Scan starten →</button></div>
+  </div>
+
+  <!-- VRAGEN -->
+  <div id="q-wrap"></div>
+
+  <!-- RAPPORT -->
+  <div class="phase" id="ph-result">
+    <div class="cat-badge">Jouw werkplekrapport</div>
+    <h2 id="res-title">Werkplekrapport</h2>
+    <p class="sub-text" id="res-intro"></p>
+    <div class="tags" id="res-tags"></div>
+
+    <div class="score-grid" id="score-grid"></div>
+
+    <div class="rapport-box">
+      <div class="rapport-eyebrow">Persoonlijk adviesrapport</div>
+      <div class="rapport-title">Ontvang een uitgebreid advies op maat in je inbox.</div>
+      <div class="rapport-sub">Op basis van jouw antwoorden stelt Fred een persoonlijk adviesrapport op met concrete eerste stappen per aandachtspunt. Je ontvangt het rapport binnen 48 uur op jouw e-mailadres.</div>
+      <button class="rapport-btn" id="rapport-btn" onclick="vraagRapportAan()">Stuur mij het adviesrapport →</button>
+      <div class="rapport-status" id="rapport-status"></div>
+      <div class="contact-rij">
+        <span style="font-size:13px;color:rgba(255,255,255,.4)">Of neem direct contact op:</span>
+        <a class="contact-link" href="tel:0610520825">06-10520825</a>
+        <span style="color:rgba(255,255,255,.25);font-size:13px">|</span>
+        <a class="contact-link" href="mailto:fred@studiovanderhorst.nl">fred@studiovanderhorst.nl</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div><p class="wrap privacy-note" data-scan-privacy>Bij het aanvragen van je rapport worden je contactgegevens en antwoorden via Formspree verstuurd. Fred stelt het persoonlijke adviesrapport op en mailt dit binnen 48 uur. <a href="../privacy/index.html">Lees de privacyverklaring</a>.</p></main><footer class="footer wrap"><div class="footer-signature"><div><p class="eyebrow">Studio Van der Horst</p><h2>Van werkplekvraag<br>naar een kantoor <span>dat werkt.</span></h2></div><a class="footer-invitation" href="../index.html#contact"><span class="footer-invitation-arrow" aria-hidden="true">↗</span><span>Vertel over <br>jullie kantoor</span></a></div><div class="footer-main"><div><p class="eyebrow">Ontdek de studio</p><nav aria-label="Footernavigatie"><a class="footer-link" href="../kantoorontwerp/index.html">Kantoorontwerp <span aria-hidden="true">↗</span></a><a class="footer-link" href="../kantoor-verhuizen/index.html">Kantoor verhuizen <span aria-hidden="true">↗</span></a><a class="footer-link" href="../kantoor-verbeteren/index.html">Kantoor verbeteren <span aria-hidden="true">↗</span></a><a class="footer-link" href="../projecten/index.html">Projecten <span aria-hidden="true">↗</span></a><a class="footer-link" href="../werkwijze/index.html">Werkwijze <span aria-hidden="true">↗</span></a><a class="footer-link" href="../kennis/index.html">Kennis <span aria-hidden="true">↗</span></a><a class="footer-link" href="../over/index.html">Over <span aria-hidden="true">↗</span></a><a class="footer-link" href="../index.html#scans">Scans <span aria-hidden="true">↗</span></a></nav><div class="footer-brand"><a class="brand" href="../index.html" aria-label="Studio Van der Horst — terug naar boven"><span class="logo-symbol" aria-hidden="true"><img src="../assets/logo-definitief-v2.png" width="1728" height="416" alt=""></span><span class="logo-copy" aria-hidden="true"><span class="logo-studio">Studio</span><span class="logo-name">Van der Horst</span></span></a></div></div><div class="footer-contact"><p class="eyebrow">Direct contact</p><p data-final-contact><a href="tel:+31610520825">06-10520825</a><br><a href="mailto:fred@studiovanderhorst.nl">fred@studiovanderhorst.nl</a></p><a class="footer-contact-link" href="tel:+31610520825">Bellen <span aria-hidden="true">↗</span></a><a class="footer-contact-link" href="mailto:fred@studiovanderhorst.nl">E-mailen <span aria-hidden="true">↗</span></a><a class="footer-contact-link" href="https://www.linkedin.com/in/fredvanderhorstbedrijfsinterieurprojecten/?locale=nl" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></div></div><div class="footer-bottom"><p>© Studio Van der Horst </p><div><a class="footer-link" href="../privacy/index.html">Privacy <span aria-hidden="true">↗</span></a><a class="footer-link" href="../cookies/index.html">Cookies <span aria-hidden="true">↗</span></a><a class="footer-link" href="../bedrijfsgegevens/index.html">Bedrijfsgegevens <span aria-hidden="true">↗</span></a><a class="footer-link" href="../algemene-voorwaarden/index.html">Algemene voorwaarden <span aria-hidden="true">↗</span></a></div></div></footer><dialog id="prototype" aria-labelledby="dialog-title"><button class="dialog-close" aria-label="Melding sluiten">×</button><h2 id="dialog-title">Deze pagina volgt later.</h2><p id="dialog-message">De bedoelde bestemming is nog niet gebouwd.</p><p class="destination"></p><button class="button dialog-back">Terug naar de homepage</button></dialog><script>
+const vragen = [
+  { cat:'Merkuitstraling', vraag:'Hoe herkenbaar is jullie merkidentiteit in de kantooromgeving?', toelichting:'Denk aan kleuren, materialen, sfeer en eerste indruk voor bezoekers.', opties:[{tekst:'Niet zichtbaar',desc:'Standaardinrichting zonder merkvertaling',score:0},{tekst:'Beperkt aanwezig',desc:'Een enkel element, niet consistent doorgevoerd',score:1},{tekst:'Gedeeltelijk',desc:'Herkenbaar voor wie het bedrijf kent, niet voor buitenstaanders',score:2},{tekst:'Sterk en consistent',desc:'Merk is zichtbaar in materialen, kleuren en sfeer',score:3}]},
+  { cat:'Merkuitstraling', vraag:'Welke indruk krijgen bezoekers in de eerste 30 seconden?', toelichting:'De entree, receptie en wachtruimte bepalen hoe mensen jullie bedrijf ervaren.', opties:[{tekst:'Onprofessioneel of verouderd',desc:'De ruimte doet afbreuk aan het gewenste imago',score:0},{tekst:'Neutraal',desc:'Geen uitgesproken beleving, positief noch negatief',score:1},{tekst:'Functioneel maar niet onderscheidend',desc:'Netjes, maar niets bijzonders',score:2},{tekst:'Onderscheidend en uitnodigend',desc:'Bezoekers reageren positief op de ruimte',score:3}]},
+  { cat:'Werkplekgebruik', vraag:'Hoe goed sluit de inrichting aan op de werkpatronen van jouw team?', toelichting:'Werken mensen altijd op dezelfde plek, wisselen ze af, of is er een mix?', opties:[{tekst:'Slecht, veel aanpassingen nodig',desc:'Medewerkers passen zich aan de ruimte aan, niet andersom',score:0},{tekst:'Matig, sommige functies werken niet goed',desc:'Bepaalde rollen of taken missen een geschikte werkplek',score:1},{tekst:'Redelijk maar verbetering mogelijk',desc:'Het werkt, maar er zijn regelmatig beperkingen',score:2},{tekst:'Goed, de ruimte ondersteunt het werk',desc:'De inrichting sluit aan op hoe mensen daadwerkelijk werken',score:3}]},
+  { cat:'Werkplekgebruik', vraag:'Kunnen medewerkers zowel geconcentreerd werken als makkelijk overleggen?', toelichting:'Een goede werkomgeving biedt ruimte voor focus én overleg, zonder dat medewerkers elkaar storen.', opties:[{tekst:'Geen variatie, één soort werkplek',desc:'Iedereen werkt op dezelfde manier in dezelfde setting',score:0},{tekst:'Beperkte variatie',desc:'Er is een vergaderruimte, maar verder weinig keuze',score:1},{tekst:'Enige variatie aanwezig',desc:'Er zijn wel verschillende plekken, maar ze sluiten niet goed op elkaar aan',score:2},{tekst:'Goede variatie in zones',desc:'Medewerkers kunnen kiezen op basis van de taak',score:3}]},
+  { cat:'Werkplekgebruik', vraag:'Hoe is de routing en logistiek georganiseerd?', toelichting:'Onnodige loopbewegingen en onduidelijke zones kosten dagelijks tijd en energie.', opties:[{tekst:'Chaotisch of onduidelijk',desc:'Medewerkers lopen regelmatig door elkaars werkgebied',score:0},{tekst:'Werkbaar maar omslachtig',desc:'De routing werkt, maar zorgt nog voor onnodige loopbewegingen',score:1},{tekst:'Redelijk logisch ingericht',desc:'De belangrijkste routes en zones zijn duidelijk, met enkele verbeterpunten',score:2},{tekst:'Helder en efficiënt',desc:'Duidelijke zones en logische doorstroming',score:3}]},
+  { cat:'Werkbeleving', vraag:'Hoe ervaart het team de geluidsomgeving op kantoor?', toelichting:'Akoestische problemen zijn een van de grootste verborgen productiviteitskillers.', opties:[{tekst:'Veel klachten over lawaai',desc:'Concentreren is lastig, medewerkers klagen regelmatig',score:0},{tekst:'Af en toe storend',desc:'Op drukke momenten merkbaar, maar niet structureel',score:1},{tekst:'Acceptabel',desc:'Geen grote problemen, maar ruimte voor verbetering',score:2},{tekst:'Akoestisch prettig',desc:'Weinig tot geen klachten over geluid',score:3}]},
+  { cat:'Werkbeleving', vraag:'Hoe is de verlichting op de werkplek?', toelichting:'Goede verlichting bestaat uit voldoende licht en zorgt voor minder vermoeidheid en meer concentratie.', opties:[{tekst:'Slecht, veel klachten',desc:'Te weinig daglicht, fel kunstlicht of veel donkere hoeken',score:0},{tekst:'Matig',desc:'Er is voldoende licht om te werken, maar het voelt niet overal prettig',score:1},{tekst:'Redelijk goed',desc:'De basis is op orde, maar sommige plekken kunnen beter worden verlicht',score:2},{tekst:'Goed',desc:'De werkplek heeft prettig licht, voldoende daglicht en weinig donkere plekken',score:3}]},
+  { cat:'Werkbeleving', vraag:'Hoe ervaren medewerkers de temperatuur en luchtkwaliteit?', toelichting:'Temperatuur en frisse lucht hebben veel invloed op concentratie, energie en werkplezier.', opties:[{tekst:'Slecht, vaak klachten',desc:'Het is regelmatig te warm, te koud of benauwd',score:0},{tekst:'Matig, wisselend per dag of plek',desc:'Het is meestal werkbaar, maar niet overal prettig',score:1},{tekst:'Redelijk, weinig klachten',desc:'Het binnenklimaat is meestal goed, met enkele verbeterpunten',score:2},{tekst:'Goed, prettig en stabiel',desc:'De temperatuur en luchtkwaliteit zijn het hele jaar door prettig',score:3}]},
+  { cat:'Werkbeleving', vraag:'In hoeverre draagt de werkomgeving bij aan werkplezier en trots?', toelichting:'Een omgeving waar mensen zich prettig voelen heeft directe invloed op motivatie en retentie.', opties:[{tekst:'Draagt niet bij, eerder negatief',desc:'De ruimte werkt demotiverend of roept schaamte op',score:0},{tekst:'Neutraal effect',desc:'De werkplek doet wat nodig is, maar maakt weinig indruk',score:1},{tekst:'Matig positief',desc:'Medewerkers zijn tevreden, maar niet enthousiast',score:2},{tekst:'Sterk positief',desc:'Medewerkers zijn trots op hun werkplek',score:3}]},
+  { cat:'Merkuitstraling', vraag:'Hoe makkelijk kan de inrichting meebewegen met veranderingen?', toelichting:'Bij groei, hybride werken of nieuwe functies moet de werkomgeving eenvoudig mee kunnen veranderen.', opties:[{tekst:'Niet flexibel',desc:'Aanpassen vraagt om een grote verbouwing',score:0},{tekst:'Beperkt flexibel',desc:'Kleine aanpassingen zijn mogelijk, maar grotere veranderingen zijn lastig',score:1},{tekst:'Redelijk flexibel',desc:'Aanpassen kan, maar kost nog tijd en moeite',score:2},{tekst:'Goed flexibel',desc:'De inrichting kan makkelijk meebewegen met verandering',score:3}]}
+];
+
+let antwoorden = {};
+let huidigeVraag = 0;
+let userData = {};
+
+function startScan() {
+  const naam = document.getElementById('f-naam').value.trim();
+  const bedrijf = document.getElementById('f-bedrijf').value.trim();
+  const email = document.getElementById('f-email').value.trim();
+  if (!naam || !bedrijf || !email) { alert('Vul alle velden in om door te gaan.'); return; }
+  if (!email.includes('@') || !email.includes('.')) { alert('Vul een geldig e-mailadres in.'); return; }
+  userData = { naam, bedrijf, email };
+
+  document.getElementById('ph-intro').classList.remove('active');
+  setFase(1);
+  toonVraag(0);
+}
+
+function toonVraag(i) {
+  const wrap = document.getElementById('q-wrap');
+  wrap.innerHTML = '';
+  const v = vragen[i];
+  const isLaatste = i === vragen.length - 1;
+  const div = document.createElement('div');
+  div.className = 'phase active';
+  div.innerHTML = `
+    <div class="cat-badge">${v.cat} — vraag ${i+1} van ${vragen.length}</div>
+    <h2>${v.vraag}</h2>
+    <p class="sub-text">${v.toelichting}</p>
+    <div class="options" id="opts"></div>
+    <div class="nav">
+      <button class="btn" onclick="vorigeVraag(${i})" ${i===0?'disabled':''}>← Vorige</button>
+      <span class="nav-step">${i+1} / ${vragen.length}</span>
+      <button class="btn btn-primary" id="btn-next" onclick="${isLaatste?'toonResultaat()':'volgendeVraag('+i+')'}" disabled>${isLaatste?'Rapport bekijken →':'Volgende →'}</button>
+    </div>`;
+  wrap.appendChild(div);
+  const opts = document.getElementById('opts');
+  v.opties.forEach((o,oi) => {
+    const el = document.createElement('div');
+    el.className = 'opt' + (antwoorden[i]===oi?' selected':'');
+    el.innerHTML = `<div class="opt-indicator"></div><div><div class="opt-title">${o.tekst}</div><div class="opt-desc">${o.desc}</div></div>`;
+    el.onclick = () => kiesOptie(i, oi);
+    opts.appendChild(el);
+  });
+  if (antwoorden[i] !== undefined) document.getElementById('btn-next').disabled = false;
+  document.getElementById('prog').style.width = Math.round(((i+1)/vragen.length)*85)+5 + '%';
+}
+
+function kiesOptie(qi, oi) {
+  antwoorden[qi] = oi;
+  document.querySelectorAll('.opt').forEach((el,idx) => el.classList.toggle('selected', idx===oi));
+  document.getElementById('btn-next').disabled = false;
+}
+
+function volgendeVraag(i) { if (antwoorden[i]===undefined) return; huidigeVraag=i+1; toonVraag(huidigeVraag); }
+function vorigeVraag(i) { if (i>0) { huidigeVraag=i-1; toonVraag(huidigeVraag); } }
+
+function setFase(f) {
+  ['fs1','fs2','fs3'].forEach((id,idx) => {
+    const el = document.getElementById(id);
+    el.className = 'fase-step' + (idx+1<f?' done':idx+1===f?' active':'');
+  });
+}
+
+// Inhoudelijke duiding per categorie op basis van score
+function getDuiding(cat, pct) {
+  const duidingen = {
+    'Merkuitstraling': [
+      'De merkidentiteit is op dit moment niet of nauwelijks zichtbaar in de kantooromgeving. Dat is een gemiste kans: elke bezoeker en medewerker ervaart de ruimte als generiek, terwijl juist de fysieke omgeving een krachtig middel is om te laten zien wie jullie zijn. Een gerichte merkvertaling naar materialen, kleuren en sfeer kan hier veel veranderen.',
+      'Er zijn elementen aanwezig, maar de merkvertaling is nog inconsistent. Bezoekers die het bedrijf niet kennen zullen de identiteit niet herkennen in de ruimte. Met een coherente aanpak van entree, werkplekken en gemeenschappelijke zones is hier snel winst te behalen.',
+      'De merkidentiteit is gedeeltelijk zichtbaar in de omgeving. De basis is aanwezig, maar er is ruimte om de uitstraling verder te verdiepen en consistenter door te voeren — zodat de ruimte ook op detailniveau het verhaal van het bedrijf vertelt.',
+      'De kantooromgeving weerspiegelt de merkidentiteit sterk en consistent. Bezoekers en medewerkers ervaren een duidelijke en herkenbare uitstraling die aansluit bij wie het bedrijf is. Dit is een solide basis om op voort te bouwen.'
+    ],
+    'Werkplekgebruik': [
+      'De inrichting sluit op dit moment slecht aan op hoe mensen daadwerkelijk werken. Medewerkers passen hun werkgedrag aan aan de ruimte in plaats van andersom — dat kost energie en productiviteit. Een herindeling op basis van werkpatronen kan hier direct merkbaar verschil maken.',
+      'De werkplek functioneert op hoofdlijnen, maar er zijn duidelijke knelpunten. Bepaalde werkstijlen of functies missen een passende plek. Met gerichte aanpassingen in zonering en meubilair is de situatie aanzienlijk te verbeteren zonder een volledige herinrichting.',
+      'De inrichting werkt redelijk, maar laat op meerdere punten nog rendement liggen. De routing, variatie in werkplekken of aansluiting op hybride werken kan scherper worden ingericht. Kleine ingrepen kunnen hier een groot verschil maken in dagelijks gebruik.',
+      'De werkplek ondersteunt het werk goed. De inrichting sluit aan op hoe mensen werken en biedt voldoende variatie voor zowel focus als samenwerking. Dit is een sterke basis die met gerichte optimalisaties verder kan worden versterkt.'
+    ],
+    'Werkbeleving': [
+      'De werkbeleving vraagt om serieuze aandacht. Klachten over geluid, licht of klimaat zijn structureel aanwezig en hebben directe invloed op concentratie, energie en verzuim. Dit zijn geen comfortkwesties maar productiviteitsfactoren die meetbaar bijdragen aan de bedrijfsresultaten.',
+      'De werkbeleving is wisselend. Op sommige vlakken zijn er merkbare knelpunten die medewerkers dagelijks ervaren. Akoestiek, verlichting of klimaat verdienen aandacht — niet alleen voor het comfort, maar ook voor de motivatie en het werkplezier van het team.',
+      'De werkbeleving is redelijk, maar er zijn aandachtspunten die met relatief beperkte ingrepen zijn te verbeteren. Gerichte aanpassingen in verlichting, akoestiek of klimaat kunnen de dagelijkse beleving merkbaar verbeteren.',
+      'Medewerkers ervaren de werkomgeving als prettig en ondersteunend. Licht, geluid en klimaat zijn op orde en dragen bij aan een positieve werkbeleving. Dit heeft een aantoonbaar effect op motivatie, concentratie en trots op de werkplek.'
+    ]
+  };
+  const idx = pct >= 75 ? 3 : pct >= 50 ? 2 : pct >= 25 ? 1 : 0;
+  return duidingen[cat][idx];
+}
+
+function toonResultaat() {
+  document.getElementById('q-wrap').innerHTML = '';
+  document.getElementById('prog').style.width = '100%';
+  setFase(2);
+
+  const cats = {'Merkuitstraling':{scores:[],max:0},'Werkplekgebruik':{scores:[],max:0},'Werkbeleving':{scores:[],max:0}};
+  vragen.forEach((v,i) => { const s=v.opties[antwoorden[i]].score; cats[v.cat].scores.push(s); cats[v.cat].max+=3; });
+
+  const resultaten = {};
+  let totaalScore=0, totaalMax=0;
+  Object.entries(cats).forEach(([naam,data]) => {
+    const som = data.scores.reduce((a,b)=>a+b,0);
+    const pct = Math.round((som/data.max)*100);
+    resultaten[naam] = {score:som, max:data.max, pct};
+    totaalScore+=som; totaalMax+=data.max;
+  });
+
+  const totaalPct = Math.round((totaalScore/totaalMax)*100);
+  let intro;
+  if (totaalPct>=75) intro=`${userData.bedrijf} scoort bovengemiddeld op alle drie de onderdelen. Er is een goede basis aanwezig. Gerichte verbeteringen op de aandachtspunten hieronder kunnen de uitstraling en beleving verder versterken.`;
+  else if (totaalPct>=50) intro=`De werkplek functioneert, maar laat op meerdere vlakken rendement liggen. Met gerichte ingrepen is significante winst te behalen in zowel uitstraling als dagelijks gebruik.`;
+  else intro=`De scan signaleert structurele knelpunten op meerdere onderdelen. Een helder verbeterplan kan snel verschil maken voor medewerkers, bezoekers en het imago van het bedrijf.`;
+
+  document.getElementById('res-title').textContent = `Werkplekrapport — ${userData.naam}`;
+  document.getElementById('res-intro').textContent = intro;
+
+  // Tags
+  const tagsEl = document.getElementById('res-tags');
+  tagsEl.innerHTML = '';
+  Object.entries(resultaten).forEach(([naam,r]) => {
+    const cls = r.pct>=70?'tag-good':r.pct>=45?'tag-warn':'tag-risk';
+    const lbl = r.pct>=70?'✓':r.pct>=45?'⚠':'✗';
+    tagsEl.innerHTML += `<span class="tag ${cls}">${lbl} ${naam}: ${r.pct}%</span>`;
+  });
+
+  // Score cards met duiding
+  const grid = document.getElementById('score-grid');
+  grid.innerHTML = '';
+  Object.entries(resultaten).forEach(([naam,r]) => {
+    const kleur = r.pct>=70?'#2D6A4F':r.pct>=45?'#92400E':'#991B1B';
+    const verdict = r.pct>=70?'Sterk — goede basis aanwezig':r.pct>=45?'Aandacht — verbeterpotentieel aanwezig':'Urgent — structureel verbeterpunt';
+    const duiding = getDuiding(naam, r.pct);
+    // Laagst scorende vraag binnen deze categorie
+    const laagste = vragen.map((v,i)=>({v,i,score:v.opties[antwoorden[i]].score}))
+      .filter(x=>x.v.cat===naam).sort((a,b)=>a.score-b.score)[0];
+    const signaal = laagste.score < 3
+      ? `<div style="margin-top:12px;padding:10px 14px;background:${r.pct>=70?'#D1FAE5':r.pct>=45?'#FEF3C7':'#FEE2E2'};border-radius:8px;font-size:13px;color:${kleur};font-weight:400;">Aandachtspunt: ${laagste.v.vraag.toLowerCase().replace('?','')} — <em>${laagste.v.opties[antwoorden[laagste.i]].tekst}</em></div>`
+      : '';
+    grid.innerHTML += `
+      <div class="score-card">
+        <div class="score-top"><span class="score-cat">${naam}</span><span class="score-pct">${r.pct}%</span></div>
+        <div class="score-bar-track"><div class="score-bar-fill" style="width:0%;background:${kleur}" data-pct="${r.pct}"></div></div>
+        <div class="score-verdict">${verdict}</div>
+        <div class="score-duiding">${duiding}</div>
+        ${signaal}
+      </div>`;
+  });
+
+  document.getElementById('ph-result').classList.add('active');
+  setTimeout(() => { document.querySelectorAll('.score-bar-fill').forEach(el => { el.style.width = el.dataset.pct+'%'; }); }, 100);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+async function vraagRapportAan() {
+  const btn = document.getElementById('rapport-btn');
+  const status = document.getElementById('rapport-status');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Aanvraag wordt verstuurd...';
+  status.textContent = '';
+  setFase(3);
+
+  const scanRegels = vragen.map((v,i) => {
+    const ant = v.opties[antwoorden[i]];
+    return `${v.cat} | ${v.vraag} | ${ant.tekst} (score ${ant.score}/3)`;
+  }).join('\n');
+
+  const formData = new FormData();
+  formData.append('naam', userData.naam);
+  formData.append('bedrijf', userData.bedrijf);
+  formData.append('email', userData.email);
+  formData.append('scanresultaten', scanRegels);
+  formData.append('_subject', `Adviesrapport aangevraagd — ${userData.naam} (${userData.bedrijf})`);
+  formData.append('_replyto', userData.email);
+
+  try {
+    const res = await fetch('https://formspree.io/f/meajzrlz', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: formData
+    });
+    const data = await res.json();
+    if (res.ok && data.ok !== false) {
+      btn.innerHTML = '✓ Aanvraag ontvangen';
+      btn.style.background = '#2D6A4F';
+      btn.style.color = 'white';
+      status.textContent = `Je aanvraag is ontvangen. Je ontvangt het persoonlijke adviesrapport binnen 48 uur op ${userData.email}.`;
+    } else {
+      throw new Error('niet ok');
+    }
+  } catch(e) {
+    btn.disabled = false;
+    btn.innerHTML = 'Opnieuw proberen →';
+    status.textContent = 'Er ging iets mis. Neem direct contact op via 06-10520825 of fred@studiovanderhorst.nl.';
+  }
+}
+</script><script src="scan-ui.js" defer></script></body></html>
