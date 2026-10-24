@@ -336,3 +336,27 @@ h1,h2,h3{letter-spacing:-.035em}
  .footer-main .logo-name{font-size:20px}
 }
 @media(max-width:360px){.header .logo-symbol{flex-basis:72px}.header .logo-studio{font-size:12px}.header .logo-name{font-size:16px}.header .header-logo{gap:7px}.header .logo-copy{height:calc(72px * 256 / 624);padding-left:7px}}
+
+/* Consistent line arrows, including iOS: inherit the surrounding text colour. */
+.arrow-up-right{display:inline-block;vertical-align:-.125em;flex-shrink:0}
+
+/* Persoonlijke introductie bij het kennismakingsformulier. */
+.contact-photo{display:block;width:100%;height:auto;margin-top:28px}
+
+/* Houd Kantoorontwerp op mobiel heel, met een titel die me schaalt met het scherm. */
+.kantoorontwerp-title .keep-word{white-space:nowrap}
+@media(max-width:700px){.page-intro .kantoorontwerp-title{font-size:clamp(1.7rem,8.5vw,2.7rem);overflow-wrap:normal;word-break:normal}}
+
+/* Compacte navigatie blijft zichtbaar tijdens scrollen. */
+:root{--site-header-height:88px}
+html{scroll-padding-top:calc(var(--site-header-height) + 20px)}
+.header{position:sticky;top:0;z-index:30;height:auto;min-height:88px;padding-block:12px;background:var(--paper);border-bottom:1px solid var(--line)}
+@media(max-width:1450px){.header nav{max-height:calc(100vh - var(--site-header-height) - 16px);max-height:calc(100dvh - var(--site-header-height) - 16px);overscroll-behavior:contain}}
+@media(max-width:700px){
+ :root{--site-header-height:76px}
+ .header{min-height:76px;padding-block:10px}
+ .header nav{max-height:calc(100vh - var(--site-header-height) - 80px - env(safe-area-inset-bottom));max-height:calc(100dvh - var(--site-header-height) - 80px - env(safe-area-inset-bottom))}
+}
+
+/* De locatiescan houdt zijn eigen vormgeving binnen de vaste websitenavigatie. */
+.location-scan-frame{display:block;width:100%;height:calc(100vh - var(--site-header-height));height:calc(100dvh - var(--site-header-height));border:0;background:#fff}

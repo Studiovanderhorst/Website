@@ -71,3 +71,15 @@ if(heroShow){
  function schedule(){clearInterval(timer);pause.textContent=paused?'Afspelen':'Pauzeren';pause.setAttribute('aria-label',paused?'Start fotowisseling':'Pauzeer fotowisseling');if(!paused&&!document.hidden&&inView)timer=setInterval(()=>{index=(index+1)%slides.length;render();},7000);}
  buttons.forEach((b,i)=>b.addEventListener('click',()=>{index=i;paused=true;render();schedule();}));pause.addEventListener('click',()=>{paused=!paused;schedule();});heroShow.addEventListener('focusin',event=>{if(event.target!==pause){paused=true;schedule();}});motion.addEventListener('change',()=>{paused=motion.matches;schedule();});document.addEventListener('visibilitychange',schedule);new IntersectionObserver(entries=>{inView=entries[0].isIntersecting;schedule();}).observe(heroShow);schedule();
 }
+
+// Houd ankerlinks en het mobiele menu vrij van de vaste bovenbalk, ook bij tekstvergroting.
+const stickyHeader = document.querySelector('.header');
+if (stickyHeader) {
+  const updateHeaderHeight = () => document.documentElement.style.setProperty('--site-header-height', `${Math.ceil(stickyHeader.getBoundingClientRect().height)}px`);
+  updateHeaderHeight();
+  if ('ResizeObserver' in window) new ResizeObserver(updateHeaderHeight).observe(stickyHeader);
+  document.querySelectorAll('a[href="#top"]').forEach(link => link.addEventListener('click', event => {
+    event.preventDefault();
+    window.scrollTo({top:0, behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'});
+  }));
+}

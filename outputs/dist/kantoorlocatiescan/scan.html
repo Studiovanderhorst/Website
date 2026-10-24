@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Kantoorlocatiescan | Studio Van der Horst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#f7f7f3;font-family:'Manrope',Arial,sans-serif;color:#1a1a1a;min-height:100vh}
+
+/* ── VARIABELEN ── */
+:root{
+  --ink:#1a1a1a;
+  --ink-soft:#6b6b6b;
+  --accent:#ECB53E;
+  --accent-lt:#fdf3d9;
+  --line:#d8d8d8;
+  --pill-bg:#ebebeb;
+  --selected-bg:#ECB53E;
+  --selected-txt:#1a1a1a;
+  --radius:10px;
+  --max:660px;
+}
+
+/* ── HEADER ── */
+.site-header{
+  background:#1a1a1a;
+  padding:16px 24px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+.header-text{display:flex;flex-direction:column;gap:2px}
+.header-name{font-size:15px;font-weight:700;color:#fff;letter-spacing:-.01em}
+.header-sub{font-size:12px;color:rgba(255,255,255,0.55)}
+
+/* ── VOORTGANGSBALK ── */
+.progress-wrap{
+  background:#fff;
+  border-bottom:1px solid var(--line);
+  padding:0 24px;
+  position:sticky;top:0;z-index:10;
+}
+.progress-inner{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:10px 0;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.progress-track{flex:1;height:4px;background:var(--line);border-radius:4px;overflow:hidden}
+.progress-fill{height:100%;background:var(--accent);border-radius:4px;transition:width .4s ease;width:0%}
+.progress-label{font-size:12px;color:var(--ink-soft);white-space:nowrap}
+
+/* ── INTRO ── */
+.intro{
+  max-width:var(--max);
+  margin:48px auto 0;
+  padding:0 24px;
+}
+.intro-eyebrow{
+  font-size:11px;font-weight:600;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--accent);margin-bottom:12px;
+}
+.intro h2{
+  font-size:clamp(26px,5vw,36px);font-weight:700;line-height:1.2;
+  color:var(--ink);margin-bottom:16px;
+}
+.intro h2 em{font-style:normal;font-weight:800;color:var(--accent)}
+.intro p{font-size:15px;line-height:1.65;color:var(--ink-soft);max-width:520px}
+.intro-meta{margin-top:20px;display:flex;gap:12px;flex-wrap:wrap}
+.meta-pill{
+  display:inline-flex;align-items:center;gap:6px;font-size:12px;
+  color:var(--ink-soft);background:var(--pill-bg);padding:5px 12px;border-radius:20px;
+}
+.start-btn{
+  margin-top:32px;display:inline-block;background:var(--accent);color:var(--ink);
+  font-family:'Manrope',sans-serif;font-size:15px;font-weight:600;
+  padding:13px 28px;border-radius:var(--radius);border:none;cursor:pointer;
+  transition:opacity .2s;
+}
+.start-btn:hover{opacity:.88}
+
+/* ── FORM ── */
+.form-wrap{
+  max-width:var(--max);margin:0 auto;padding:0 24px;display:none;
+}
+.form-wrap.active{display:block}
+.section-block{padding-top:48px}
+.section-label{
+  font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:28px;display:flex;align-items:center;gap:8px;
+}
+.section-label::after{content:'';flex:1;height:1px;background:var(--line)}
+.question-block{margin-bottom:36px}
+.question-label{font-size:15px;font-weight:500;line-height:1.45;color:var(--ink);margin-bottom:4px}
+.question-sub{font-size:13px;color:var(--ink-soft);margin-bottom:14px;line-height:1.5}
+.question-clarify{font-size:13px;color:var(--ink-soft);margin-bottom:14px;line-height:1.5;font-style:italic}
+.multi-note{font-size:12px;color:var(--accent);margin-bottom:10px;font-style:italic}
+
+/* ── PILL OPTIES ── */
+.pill-grid{display:flex;flex-direction:column;gap:8px}
+.pill{
+  display:flex;align-items:center;
+  width:100%;padding:11px 18px;background:#fff;border:1.5px solid var(--line);
+  border-radius:40px;font-size:13.5px;font-family:'Manrope',sans-serif;
+  color:var(--ink);cursor:pointer;transition:background .15s,border-color .15s,color .15s;
+  user-select:none;line-height:1.35;text-align:left;
+}
+.pill:hover{background:var(--pill-bg);border-color:#bbb}
+.pill.selected{background:var(--selected-bg);border-color:var(--selected-bg);color:var(--selected-txt);font-weight:600}
+
+/* ── TEKSTVELD ── */
+.text-input{
+  width:100%;padding:12px 16px;font-family:'Manrope',sans-serif;font-size:14px;
+  color:var(--ink);background:#fff;border:1.5px solid var(--line);
+  border-radius:var(--radius);outline:none;transition:border-color .15s;
+}
+.text-input:focus{border-color:var(--accent)}
+.input-row{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.input-row label{font-size:14px;color:var(--ink-soft)}
+.input-row input[type="number"]{
+  width:80px;padding:9px 12px;border:1.5px solid var(--line);border-radius:var(--radius);
+  font-size:14px;font-family:'Manrope',sans-serif;color:var(--ink);background:#fff;
+  text-align:center;outline:none;transition:border-color .15s;
+}
+.input-row input[type="number"]:focus{border-color:var(--accent)}
+.input-row span{font-size:14px;color:var(--ink-soft)}
+
+/* ── NAVIGATIE ── */
+.nav-bar{
+  max-width:var(--max);margin:32px auto 0;padding:0 24px 64px;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.btn-back{
+  background:none;border:1.5px solid var(--line);border-radius:var(--radius);
+  font-family:'Manrope',sans-serif;font-size:14px;color:var(--ink-soft);
+  padding:10px 20px;cursor:pointer;transition:border-color .15s;
+}
+.btn-back:hover{border-color:#999}
+.btn-back:disabled{opacity:.3;cursor:default}
+.btn-next{
+  background:var(--accent);color:var(--ink);font-family:'Manrope',sans-serif;
+  font-size:15px;font-weight:600;padding:12px 28px;border-radius:var(--radius);
+  border:none;cursor:pointer;transition:opacity .2s;
+}
+.btn-next:hover{opacity:.88}
+
+/* ── UITSLAG ── */
+.result-wrap{max-width:var(--max);margin:0 auto;padding:48px 24px 80px}
+.result-eyebrow{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.result-title{font-size:clamp(24px,4vw,32px);font-weight:700;line-height:1.2;color:var(--ink);margin-bottom:24px}
+
+.verdict-banner{border-radius:var(--radius);padding:20px 24px;margin-bottom:24px}
+.verdict-banner h3{font-size:17px;font-weight:700;margin-bottom:6px;line-height:1.35}
+.verdict-banner p{font-size:14px;line-height:1.65}
+
+.result-pills{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:32px}
+.result-pill{border-radius:40px;padding:10px 18px;font-size:13px;font-weight:600}
+
+.res-section-label{
+  font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:20px;display:flex;align-items:center;gap:8px;
+}
+.res-section-label::after{content:'';flex:1;height:1px;background:var(--line)}
+
+/* Budget block */
+.budget-block{border-radius:var(--radius);padding:18px 22px;margin-bottom:28px}
+.budget-oordeel{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+.budget-tekst{font-size:14px;line-height:1.65}
+
+/* Aandachtspunten kaarten */
+.aandacht-card{
+  border:1.5px solid var(--line);border-radius:var(--radius);
+  overflow:hidden;margin-bottom:12px;background:#fff;
+}
+.aandacht-card-top{padding:16px 18px}
+.aandacht-tag{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+.aandacht-probleem{font-size:14px;font-weight:500;color:var(--ink);line-height:1.45;margin-bottom:12px}
+.toggle-btn{
+  display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;
+  padding:7px 16px;border-radius:40px;cursor:pointer;border:1.5px solid;
+  transition:background .15s;font-family:'Manrope',sans-serif;
+}
+.aandacht-body{padding:0 18px 18px;display:none}
+.aandacht-body.open{display:block}
+.advice-block-label{
+  font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--ink-soft);margin:14px 0 8px;
+}
+.advice-list{list-style:none;padding:0;margin:0}
+.advice-list li{
+  font-size:13px;color:var(--ink-soft);line-height:1.6;
+  padding:6px 0 6px 18px;position:relative;
+  border-bottom:1px solid #f0f0ee;
+}
+.advice-list li:last-child{border-bottom:none}
+.advice-list li::before{
+  content:"›";position:absolute;left:0;color:var(--accent);
+  font-weight:700;font-size:16px;line-height:1.3;
+}
+
+/* Goed geregeld */
+.ok-list{list-style:none;padding:0;margin:0 0 28px}
+.ok-list li{
+  display:flex;align-items:center;gap:10px;
+  font-size:14px;color:var(--ink-soft);padding:7px 0;
+  border-bottom:1px solid #f0f0ee;
+}
+.ok-list li:last-child{border-bottom:none}
+.ok-dot{width:8px;height:8px;border-radius:50%;background:#1D9E75;flex-shrink:0}
+
+/* Wie pakt wat op */
+.vakgebied-card{background:#fff;border:1.5px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin-bottom:12px}
+.vakgebied-header{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px}
+.vakgebied-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.vakgebied-titles{display:flex;flex-direction:column;gap:2px}
+.vakgebied-title{font-size:13px;font-weight:700;color:var(--ink)}
+.vakgebied-partij{font-size:12px;color:var(--ink-soft)}
+.vakgebied-list{list-style:none;padding:0;margin:0 0 0 20px}
+.vakgebied-list li{font-size:13px;color:var(--ink-soft);padding:4px 0 4px 14px;position:relative;border-bottom:1px solid #f0f0ee}
+.vakgebied-list li:last-child{border-bottom:none}
+.vakgebied-list li::before{content:"›";position:absolute;left:0;color:#ccc;font-weight:700}
+
+/* CTA */
+.cta-block{
+  background:var(--accent);border-radius:var(--radius);
+  padding:28px 24px;margin-top:24px;
+}
+.cta-title{font-size:20px;font-weight:700;color:var(--ink);margin-bottom:8px}
+.cta-block p{font-size:14px;color:rgba(26,26,26,0.72);line-height:1.65;margin-bottom:20px}
+
+.cta-form-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:10px}
+.cta-input{
+  flex:1;min-width:140px;padding:11px 14px;
+  border:none;border-radius:var(--radius);font-size:14px;
+  font-family:'Manrope',sans-serif;color:var(--ink);background:#fff;outline:none;
+}
+.cta-btn{
+  background:var(--ink);color:#fff;font-family:'Manrope',sans-serif;
+  font-size:14px;font-weight:600;padding:12px 24px;border-radius:var(--radius);
+  border:none;cursor:pointer;transition:opacity .2s;white-space:nowrap;
+}
+.cta-btn:hover{opacity:.82}
+.form-success{
+  background:rgba(255,255,255,0.6);border-radius:var(--radius);
+  padding:14px 18px;font-size:14px;color:var(--ink);font-weight:500;margin-top:10px;
+}
+
+.reset-row{text-align:center;margin-top:32px}
+.reset-btn{
+  background:none;border:1.5px solid var(--line);border-radius:var(--radius);
+  font-family:'Manrope',sans-serif;font-size:13px;color:var(--ink-soft);
+  padding:9px 20px;cursor:pointer;transition:border-color .15s;
+}
+.reset-btn:hover{border-color:#999}
+
+/* ── BEDANKT ── */
+.thankyou{display:none;max-width:var(--max);margin:64px auto 0;padding:0 24px;text-align:center}
+.thankyou.active{display:block}
+
+/* ── FOOTER ── */
+.site-footer{
+  border-top:1px solid var(--line);padding:24px;margin-top:auto;
+  font-size:12px;color:var(--ink-soft);text-align:center;
+}
+
+@media(max-width:480px){
+  .pill{font-size:13px;padding:8px 14px}
+  .nav-bar{flex-direction:row}
+  .result-pills{gap:8px}
+}
+
+/* ── VISUELE AANSLUITING BIJ WERKPLEKSCAN ──
+   Alleen vormgeving. Vragen, teksten en functionaliteit zijn ongewijzigd. */
+:root {
+ --ink:#805a3e; --ink-soft:#806953; --accent:#805a3e;
+ --accent-lt:#eee8df; --line:#d9cfc3; --pill-bg:#eee8df;
+ --selected-bg:#805a3e; --selected-txt:#ffffff;
+ --radius:0px; --max:900px;
+}
+html{scroll-behavior:smooth}
+body{background:#f7f7f3;color:#805a3e;font-family:Arial,Helvetica,sans-serif;line-height:1.5}
+button,input{font-family:Arial,Helvetica,sans-serif}
+.site-header{background:#fff;border-bottom:1px solid #e8e8e4;padding:14px 24px;min-height:80px;gap:18px}
+.header-logo{height:52px;width:auto;max-width:min(80vw,340px);object-fit:contain;object-position:left center}
+.header-text{display:none}
+.progress-wrap{background:#f7f7f3;border-bottom:0;position:sticky;top:0;padding:0 7%;}
+.progress-inner{max-width:900px;padding:22px 0 8px;gap:20px}
+.progress-track{height:2px;border-radius:0;background:#d9cfc3;overflow:visible;position:relative}
+.progress-fill{height:2px;border-radius:0;background:#805a3e;position:relative}
+.progress-fill::after{content:'';position:absolute;right:-4px;top:-3px;width:8px;height:8px;border-radius:50%;background:#805a3e}
+.progress-label{font-size:15px;color:#806953}
+.intro{max-width:900px;margin:58px auto 0;padding:0 24px}
+.intro-eyebrow,.result-eyebrow,.section-label,.res-section-label{font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#806953}
+.intro-eyebrow{margin-bottom:22px}
+.intro h2{font-size:clamp(2.3rem,4.6vw,4.5rem);line-height:1.08;letter-spacing:-.035em;font-weight:600;margin-bottom:24px;color:#805a3e}
+.intro h2 em{font-style:normal;font-weight:600;color:#805a3e}
+.intro p{font-size:20px;line-height:1.5;color:#806953;max-width:750px}
+.intro-meta{gap:8px 28px;margin-top:32px}
+.meta-pill{font-size:14px;border-bottom:1px solid #d9cfc3;padding:8px 0;border-radius:0;background:transparent;color:#806953}
+.start-btn,.btn-next{background:#805a3e;color:white;border:1px solid #805a3e;border-radius:0;font-size:18px;font-weight:500;padding:14px 23px;min-height:48px}
+.start-btn{margin-top:36px}
+.start-btn:hover,.btn-next:hover{background:#68462e;opacity:1}
+.form-wrap{max-width:900px;padding:0 24px}
+.section-block{padding-top:55px}
+.section-label{margin-bottom:34px}
+.section-label::after,.res-section-label::after{background:#d9cfc3}
+.question-block{margin-bottom:45px}
+.question-label{font-size:clamp(22px,3vw,29px);font-weight:600;letter-spacing:-.025em;line-height:1.23;margin-bottom:12px;color:#805a3e}
+.question-sub,.question-clarify{font-size:17px;line-height:1.6;color:#806953;margin-bottom:20px}
+.multi-note{font-size:14px;color:#806953}
+.pill-grid{gap:0!important;border-bottom:1px solid #d9cfc3}
+.pill{border:none;border-top:1px solid #d9cfc3;border-radius:0;background:transparent;padding:23px 16px;font-size:20px;font-weight:600;line-height:1.35;color:#805a3e;min-height:70px;transition:background .15s,color .15s}
+.pill:hover{background:#eee8df;border-color:#d9cfc3}
+.pill.selected{background:#805a3e;color:#fff;border-color:#805a3e;font-weight:600}
+.pill.selected:hover{background:#805a3e}
+.text-input,.input-row input[type=number]{background:transparent;border:1px solid #a58c76;border-radius:0;color:#805a3e;font-size:18px;padding:14px 16px;min-height:52px}
+.input-row label,.input-row span{font-size:17px;color:#806953}
+.text-input:focus,.input-row input[type=number]:focus{border-color:#805a3e}
+.nav-bar{max-width:900px;padding:0 24px 80px;margin-top:36px;gap:12px}
+.btn-back{background:transparent;border:1px solid #a58c76;border-radius:0;color:#805a3e;font-size:18px;padding:14px 23px;min-height:48px}
+.btn-back:hover{background:#eee8df;border-color:#a58c76}
+.result-wrap{max-width:900px;padding:55px 24px 90px}
+.result-title{font-size:clamp(32px,4vw,48px);line-height:1.13;letter-spacing:-.035em;color:#805a3e;font-weight:600;margin-bottom:30px}
+.verdict-banner,.budget-block{border-radius:0!important;padding:26px 28px;margin-bottom:30px}
+.verdict-banner h3{font-size:24px}
+.verdict-banner p,.budget-tekst{font-size:17px;line-height:1.6}
+.result-pills{gap:8px;margin-bottom:40px}
+.result-pill{border-radius:0;font-size:14px;padding:8px 12px}
+.res-section-label{margin-bottom:22px}
+.aandacht-card{border:0;border-top:1px solid #d9cfc3;border-bottom:1px solid #d9cfc3;border-radius:0;background:transparent;margin-bottom:12px}
+.aandacht-card-top{padding:24px 0}
+.aandacht-tag,.budget-oordeel{font-size:13px;letter-spacing:.08em}
+.aandacht-probleem{font-size:20px;font-weight:500;color:#805a3e;line-height:1.5}
+.toggle-btn{font-size:16px;border-radius:0;padding:11px 18px}
+.aandacht-body{padding:0 0 22px}
+.advice-block-label{font-size:13px;color:#806953}
+.advice-list li,.vakgebied-list li{font-size:16px;color:#806953;line-height:1.55;border-color:#d9cfc3}
+.advice-list li::before{color:#805a3e}
+.ok-list li{font-size:17px;color:#806953;border-color:#d9cfc3}
+.vakgebied-card{background:transparent;border:0;border-top:1px solid #d9cfc3;border-radius:0;padding:25px 0;margin:0}
+.vakgebied-title{font-size:19px;color:#805a3e}
+.vakgebied-partij{font-size:15px;color:#806953}
+.cta-block{background:#805a3e;border-radius:0;padding:36px;margin-top:34px}
+.cta-title{font-size:30px;letter-spacing:-.03em;color:white;font-weight:600}
+.cta-block p{font-size:19px;color:#fff;line-height:1.5}
+.cta-input{border-radius:0;min-height:52px;color:#805a3e;font-size:17px}
+.cta-btn{border-radius:0;background:#f7f7f3;color:#805a3e;font-size:18px;padding:14px 23px;font-weight:600}
+.form-success{border-radius:0}
+.reset-btn{border-radius:0;color:#805a3e;font-size:16px;padding:12px 20px;border-color:#a58c76}
+.site-footer{border-top:1px solid #d9cfc3;padding:28px 7%;font-size:14px;color:#806953}
+button:focus-visible,input:focus-visible,.pill:focus-visible{outline:2px solid #805a3e;outline-offset:3px}
+@media(max-width:700px){
+ .intro{margin-top:40px}.intro p{font-size:18px}.section-block{padding-top:35px}
+ .question-label{font-size:23px}.question-sub,.question-clarify{font-size:16px}
+ .pill{font-size:18px;padding:20px 12px;min-height:63px}
+ .start-btn,.btn-next,.btn-back{font-size:16px;padding:12px 16px}
+ .progress-inner{gap:12px}.progress-label{font-size:12px}
+ .cta-block{padding:24px}.cta-title{font-size:26px}.cta-block p{font-size:17px}
+ .result-wrap{padding-top:36px}.result-title{font-size:32px}
+ .verdict-banner,.budget-block{padding:20px}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+</style>
+<meta name="robots" content="noindex,follow">
+</head>
+<body>
+
+<!-- HEADER -->
+
+
+<!-- VOORTGANGSBALK -->
+<div class="progress-wrap" id="progress-wrap" style="display:none">
+  <div class="progress-inner">
+    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    <div class="progress-label" id="progress-label"></div>
+  </div>
+</div>
+
+<!-- INTRO -->
+<div class="intro" id="intro-section">
+  <div class="intro-eyebrow">Gratis · 5 minuten · Direct resultaat</div>
+  <h2>Past dit pand bij<br><em>jouw bedrijf?</em></h2>
+  <p>Beantwoord 22 vragen over werkplekgebruik, groei, uitstraling en comfort. Je krijgt direct inzicht in waar kansen of risico's liggen, vóórdat je een huurcontract tekent.</p>
+  <div class="intro-meta">
+    <span class="meta-pill">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      5 minuten
+    </span>
+    <span class="meta-pill">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      22 vragen
+    </span>
+    <span class="meta-pill">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      Direct advies
+    </span>
+  </div>
+  <form id="scan-contact" style="margin-top:28px" onsubmit="event.preventDefault(); startScan()">
+  <div class="cta-form-row">
+    <input class="cta-input" id="scan-naam" name="naam" aria-label="Naam" placeholder="Jouw naam" autocomplete="name" required>
+    <input class="cta-input" id="scan-email" name="email" aria-label="E-mailadres" placeholder="E-mailadres" type="email" autocomplete="email" required>
+  </div>
+  <div class="cta-form-row"><input class="cta-input" id="scan-bedrijf" name="bedrijf" aria-label="Bedrijfsnaam" placeholder="Bedrijfsnaam" autocomplete="organization" required></div>
+  <p style="font-size:14px;margin-top:12px">Bij afronding worden je contactgegevens, antwoorden en advies via Formspree naar Studio Van der Horst verstuurd. Een adviesgesprek vraag je afzonderlijk aan. <a href="https://studiovanderhorst.nl/privacy/" target="_blank" rel="noopener">Privacyverklaring</a></p>
+  <button class="start-btn" type="submit">Start de scan →</button>
+</form>
+</div>
+
+<!-- VRAGEN -->
+<div class="form-wrap" id="form-section">
+  <div class="section-block">
+    <div class="section-label" id="section-label"></div>
+    <div id="question-area"></div>
+  </div>
+</div>
+
+<!-- NAVIGATIE -->
+<div class="nav-bar" id="nav-bar" style="display:none">
+  <button class="btn-back" id="btn-prev" onclick="navigate(-1)">← Vorige</button>
+  <button class="btn-next" id="btn-next" onclick="navigate(1)">Volgende</button>
+</div>
+
+<!-- UITSLAG -->
+<div id="result-section"></div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  Studio Van der Horst &nbsp;·&nbsp; Eindhoven &nbsp;·&nbsp;
+  <a href="mailto:fred@studiovanderhorst.nl" style="color:inherit">fred@studiovanderhorst.nl</a>
+</footer>
+
+<script>
+// ── FORMSPREE ──────────────────────────────────────────────────────────────────
+// Vervang meajzrlz door je eigen ID van formspree.io
+const FORMSPREE_ID = 'moejzlpo';
+
+// ── HELPERS ────────────────────────────────────────────────────────────────────
+let employeeCount = '';
+function fmtBedrag(n){ return n==null ? '?' : '€'+Math.round(n).toLocaleString('nl-NL'); }
+function fmtPerM2(n){ return n==null ? '?' : '€'+Math.round(n).toLocaleString('nl-NL'); }
+
+const oppervlakteData = [
+  {mid:75},{mid:175},{mid:375},{mid:600}
+];
+
+// ── ROL PER CATEGORIE ──────────────────────────────────────────────────────────
+const catRol = {
+  'Bezetting & groei':'inrichting','Werkwijze & zonering':'inrichting',
+  'Routing & ontvangst':'inrichting','Merkbeleving & uitstraling':'inrichting',
+  'Daglicht & comfort':'inrichting','Hergebruik meubilair':'inrichting',
+  'Inrichtingsimpact & kosten':'bouw','Praktische randvoorwaarden':'vastgoed'
+};
+const rolLabels = {
+  inrichting:{label:'Kantoorinrichting en werkplekadvies',partij:'Studio Van der Horst',kleur:'#185FA5'},
+  bouw:      {label:'Bouw, afwerking en installaties',   partij:'Aannemer of bouwkundig adviseur',kleur:'#BA7517'},
+  vastgoed:  {label:'Huurcontract en vastgoed',          partij:'Bedrijfsmakelaar',kleur:'#888780'}
+};
+
+// ── VRAGEN ─────────────────────────────────────────────────────────────────────
+const questions = [
+  {section:'Bezetting & groei',q:'Met hoeveel medewerkers werk je momenteel en hoeveel groei verwacht je per jaar?',sub:'Dit bepaalt of het pand nu én op termijn voldoende capaciteit biedt.',hasEmployeeInput:true,multi:false,
+   opts:[{t:'Stabiel, minder dan 5% groei per jaar',s:3},{t:'Lichte groei, 5 tot 10% per jaar',s:2},{t:'Duidelijke groei, 10 tot 25% per jaar',s:1},{t:'Snelle groei, meer dan 25% of nog onzeker',s:0}],cat:'Bezetting & groei'},
+
+  {section:'Bezetting & groei',q:'Hoeveel bruikbare werkruimtes heeft het pand in totaal?',clarify:'Werkvloer, vergaderruimte, belruimte of spreekkamer. Toiletten, kantine en technische ruimtes niet meerekenen.',multi:false,
+   opts:[{t:'1 tot 2 ruimtes',s:0},{t:'3 tot 5 ruimtes',s:1},{t:'6 tot 10 ruimtes',s:2},{t:'Meer dan 10 ruimtes',s:3}],cat:'Bezetting & groei'},
+
+  {section:'Bezetting & groei',q:'Kun je de werkruimtes naar eigen inzicht inrichten en meubileren?',sub:'Dit bepaalt hoeveel vrijheid je hebt om elke ruimte passend te maken.',multi:false,
+   opts:[{t:'Volledig vrij, indeling en inrichting naar eigen wens',s:3},{t:'Grotendeels vrij, hoofdindeling ligt vast, rest flexibel',s:2},{t:'Beperkt, geen structurele aanpassingen toegestaan',s:1},{t:'Niet mogelijk, indeling ligt volledig vast',s:0}],cat:'Bezetting & groei'},
+
+  {section:'Bezetting & groei',q:'Zijn de werkruimtes groot genoeg voor het gebruik dat je voor ogen hebt?',sub:'Denk aan vergaderruimtes voor jouw gebruikelijke groepsgrootte, of belruimtes voor één persoon.',multi:false,
+   opts:[{t:'Ruim voldoende',s:3},{t:'Voldoende, weinig marge',s:2},{t:'Krap',s:1},{t:'Te klein',s:0}],cat:'Bezetting & groei'},
+
+  {section:'Werkwijze & zonering',q:'Wat is jullie manier van werken? Selecteer alles wat van toepassing is.',sub:'Dit maakt duidelijk welke ruimtes en plekken jullie nodig hebben.',multi:true,multiLogic:true,
+   opts:[{t:'Focuswerk, rustige, ongestoorde werkplekken',s:1},{t:'Intern overleg, voldoende besloten overlegruimte',s:1},{t:'Klantontmoeting, pand moet representatief zijn',s:1},{t:'Hybride werken, flexibele plekken',s:1}],cat:'Werkwijze & zonering'},
+
+  {section:'Werkwijze & zonering',q:'Zijn er genoeg ruimtes voor overleg, bellen en vertrouwelijke gesprekken?',sub:'Het aantal besloten ruimtes bepaalt of het pand aansluit op de dagelijkse werkpraktijk.',multi:false,
+   opts:[{t:'Ja, voldoende voor onze bezetting',s:3},{t:'Beperkt, met één of twee extra ruimtes op te lossen',s:2},{t:'Nauwelijks, hier is een serieuze ingreep voor nodig',s:1}],cat:'Werkwijze & zonering'},
+
+  {section:'Werkwijze & zonering',q:'Hoeveel klanten of externe relaties ontvang je gemiddeld per week?',sub:'Hoe vaker bezoekers komen, hoe meer het pand moet voldoen op het gebied van entree en routing.',multi:false,
+   opts:[{t:'Zelden of nooit',s:3},{t:'Incidenteel, een paar keer per maand',s:2},{t:'Regelmatig, meerdere keren per week',s:1},{t:'Dagelijks, klantontmoeting is onze kernactiviteit',s:0}],cat:'Werkwijze & zonering'},
+
+  {section:'Routing & ontvangst',q:'Hoe is de entree van het pand ingericht?',sub:'De eerste indruk bij binnenkomst bepaalt direct hoe bezoekers jouw bedrijf ervaren.',multi:false,
+   opts:[{t:'Representatief, ruime ontvangstruimte, duidelijke routing',s:3},{t:'Functioneel, bescheiden maar verzorgd',s:2},{t:'Rommelig of onduidelijk',s:1},{t:'Geen entree, bezoekers komen direct op de werkvloer',s:0}],cat:'Routing & ontvangst'},
+
+  {section:'Routing & ontvangst',q:'Is er scheiding mogelijk tussen bezoekersstromen en de interne werkvloer?',sub:'Klanten die dwars door de werkvloer lopen verstoren focus en ogen onprofessioneel.',multi:false,
+   opts:[{t:'Ja, scheiding is aanwezig of eenvoudig te realiseren',s:3},{t:'Deels, met slimme indeling te verbeteren',s:2},{t:'Nauwelijks, bezoekers en medewerkers lopen door elkaar',s:1}],cat:'Routing & ontvangst'},
+
+  {section:'Merkbeleving & uitstraling',q:'In hoeverre past de uitstraling van het pand bij jullie bedrijf?',sub:'Architectuur, karakter, locatie en eerste indruk, vóórdat je één meubelstuk plaatst.',multi:false,
+   opts:[{t:'Past goed, versterkt ons merk direct',s:3},{t:'Past deels, met de juiste inrichting goed te sturen',s:2},{t:'Neutraal, geen uitgesproken karakter',s:1},{t:'Past niet, fundamenteel verkeerd voor wie we zijn',s:0}],cat:'Merkbeleving & uitstraling'},
+
+  {section:'Merkbeleving & uitstraling',q:'Hoeveel ruimte geeft het pand om jullie eigen sfeer en uitstraling terug te laten komen?',sub:'Denk aan logo, kleuren, wandafwerking, verlichting, meubels of andere merkherkenbare elementen.',multi:false,
+   opts:[{t:'Veel ruimte, grotendeels naar eigen wens in te richten',s:3},{t:'Voldoende, enkele beperkingen, maar genoeg mogelijkheden',s:2},{t:'Beperkt, alleen met meubels en accessoires iets toe te voegen',s:1}],cat:'Merkbeleving & uitstraling'},
+
+  {section:'Daglicht & comfort',q:'Komt er genoeg daglicht op de plekken waar mensen werken?',sub:'Daglicht is de meest onderschatte factor voor productiviteit en werkbeleving.',multi:false,
+   opts:[{t:'Ja, ruime ramen, meeste werkplekken hebben direct daglicht',s:3},{t:'Grotendeels, meeste werkplekken hebben zicht op buiten',s:2},{t:'Deels, een deel heeft weinig of geen daglicht',s:1},{t:'Nee, nauwelijks daglicht op de werkplekken',s:0}],cat:'Daglicht & comfort'},
+
+  {section:'Daglicht & comfort',q:'Is de basisakoestiek van het pand prettig genoeg om goed te kunnen werken?',sub:'Hoge plafonds, beton en glas geven vaak veel galm. Dat is vermoeiend en moeilijk te corrigeren.',multi:false,
+   opts:[{t:'Ja, rustig en aangenaam',s:3},{t:'Redelijk, wat galm, met inrichting op te lossen',s:2},{t:'Matig, duidelijke galm, extra maatregelen nodig',s:1},{t:'Nee, storend, verwacht een serieus probleem',s:0}],cat:'Daglicht & comfort'},
+
+  {section:'Daglicht & comfort',q:'Weet je hoe verwarming, koeling en ventilatie in dit pand geregeld zijn?',sub:'Klimaat bepaalt het dagelijks comfort én de energiekosten. Vraag dit vroeg na.',multi:false,
+   opts:[{t:'Ja, moderne installatie, goed regelbaar per zone',s:3},{t:'Grotendeels, functioneel maar niet optimaal',s:2},{t:'Beperkt, verouderd of weinig flexibel',s:1},{t:'Onbekend, ik weet hier nog te weinig over',s:0}],cat:'Daglicht & comfort'},
+
+  {section:'Hergebruik meubilair',q:'Kun je je huidige meubilair meenemen naar het nieuwe pand?',sub:'Hergebruik bespaart kosten, maar werkt alleen als het meubilair past qua afmeting en uitstraling.',multi:false,
+   opts:[{t:'Ja, grotendeels, past goed in de nieuwe ruimte',s:3},{t:'Deels, aanvulling of vervanging nodig',s:2},{t:'Nee, past niet bij de nieuwe ruimte of uitstraling',s:1}],cat:'Hergebruik meubilair'},
+
+  {section:'Inrichtingsimpact & kosten',q:'Zijn de vloer, wanden en het plafond al afgewerkt?',sub:'Dit bepaalt of je direct kunt inrichten of eerst bouw- en afwerkingswerkzaamheden nodig zijn.',multi:false,isAfwerking:true,
+   opts:[{t:'Ja, afgewerkte vloer, gestucte wanden, afgewerkt plafond',s:3,minPerM2:300,maxPerM2:600},{t:'Deels, één of meer onderdelen voldoen nog niet',s:2,minPerM2:500,maxPerM2:900},{t:'Nee, ruimte is grotendeels kaal',s:1,minPerM2:800,maxPerM2:1500}],cat:'Inrichtingsimpact & kosten'},
+
+  {section:'Inrichtingsimpact & kosten',q:'Zijn verwarming, koeling, elektra en verlichting al aanwezig en bruikbaar?',sub:'Ontbrekende of verouderde installaties zijn een grote kostenpost.',multi:false,isInstallatie:true,
+   opts:[{t:'Ja, volledig aanwezig, in goede staat en direct bruikbaar',s:3,extraPerM2:0},{t:'Deels, niet compleet, verouderd of onvoldoende',s:2,extraPerM2:200},{t:'Nee, ontbreekt grotendeels',s:1,extraPerM2:500}],cat:'Inrichtingsimpact & kosten'},
+
+  {section:'Inrichtingsimpact & kosten',q:'Is er met de verhuurder een financiële bijdrage of huurvoordeel afgesproken?',sub:'Bij een nieuw of langlopend huurcontract is hier vaak ruimte voor.',multi:false,
+   opts:[{t:'Ja, bijdrage of huurvrije periode is overeengekomen',s:3},{t:'In onderhandeling, nog niet definitief',s:2},{t:'Nog niet besproken',s:1},{t:'Niet mogelijk, verhuurder heeft dit uitgesloten',s:0}],cat:'Inrichtingsimpact & kosten'},
+
+  {section:'Inrichtingsimpact & kosten',q:'Wat is het totale oppervlak van het pand?',sub:'Dit helpt beoordelen of het budget past bij de omvang en staat van het pand.',multi:false,isOppervlak:true,
+   opts:[{t:'Tot 100 m²',s:2},{t:'100 tot 250 m²',s:3},{t:'250 tot 500 m²',s:2},{t:'Meer dan 500 m²',s:1}],cat:'Inrichtingsimpact & kosten'},
+
+  {section:'Inrichtingsimpact & kosten',q:'Welk totaalbudget is beschikbaar voor inrichting en aanpassingen?',sub:'De scan beoordeelt of dit budget past bij de omvang en staat van dit pand.',multi:false,isBudget:true,
+   opts:[{t:'Tot €25.000',totaal:25000,s:0},{t:'€25.000 tot €75.000',totaal:50000,s:1},{t:'€75.000 tot €150.000',totaal:112500,s:2},{t:'Meer dan €150.000',totaal:175000,s:3},{t:'Nog onbekend',totaal:null,s:0}],cat:'Inrichtingsimpact & kosten'},
+
+  {section:'Praktische randvoorwaarden',q:'Zijn er praktische beperkingen die het dagelijks gebruik kunnen belemmeren?',sub:'Denk aan parkeren, OV, laadpalen, fietsenstalling, toegankelijkheid, lift of toegang buiten kantooruren.',multi:false,
+   opts:[{t:'Nee, bereikbaarheid en faciliteiten zijn goed geregeld',s:3},{t:'Beperkt, kleine punten, oplosbaar of acceptabel',s:2},{t:'Ja, op één punt, vraagt aandacht',s:1},{t:'Ja, op meerdere punten, risico voor dagelijkse werking',s:0}],cat:'Praktische randvoorwaarden'},
+
+  {section:'Praktische randvoorwaarden',q:'Geeft het huurcontract voldoende ruimte als jullie situatie verandert?',sub:'Looptijd, opzegtermijn, verlenging, indexering, verbouwen, terugleververplichtingen, groei of krimp.',multi:false,
+   opts:[{t:'Ja, flexibel, past bij mogelijke verandering',s:3},{t:'Redelijk, basis goed, enkele voorwaarden aanscherpen',s:2},{t:'Beperkt, kan later belemmeren',s:1},{t:'Nee, legt ons sterk vast',s:0}],cat:'Praktische randvoorwaarden'}
+];
+
+// ── ADVIESDATA ─────────────────────────────────────────────────────────────────
+const adviceData = {
+  'Bezetting & groei':{
+    probleem:'Het pand biedt onvoldoende ruimte of flexibiliteit voor de huidige bezetting en verwachte groei.',
+    oplossingen:['Een werkwijze waarbij niet iedereen een vaste werkplek heeft, maakt het pand geschikter voor meer mensen dan de oppervlakte suggereert. Dit is iets dat veel bedrijven pas achteraf ontdekken.','Laat een inrichtingsspecialist beoordelen of slimme indeling de feitelijke bezettingscapaciteit vergroot. De papieren m² en de bruikbare m² zijn zelden hetzelfde.','Als aangrenzende ruimte beschikbaar is in het gebouw, is het de moeite waard om te vragen of een voorkeur hierop bespreekbaar is. Dat kan alleen vóór ondertekening.'],
+    vragen:['Zijn er aangrenzende ruimtes of etages beschikbaar en is een voorkeur hierop bespreekbaar?','Wat is de maximale toegestane bezetting op basis van de geldende normen?']},
+  'Werkwijze & zonering':{
+    probleem:'De beschikbare ruimtes sluiten niet goed aan op de manier van werken. Focusplekken, overlegzones of ontvangstruimte ontbreken of zijn onvoldoende.',
+    oplossingen:['Losse akoestische cabines of belruimtes zijn verplaatsbaar, vereisen geen bouwvergunning en creëren besloten werkplekken in een open ruimte (€2.000 tot €6.000 per stuk).','Eén ruimte die als vergaderkamer, spreekkamer én ontvangstruimte functioneert is in veel panden te realiseren met de juiste inrichting, mits de verhuurder aanpassingen toestaat.'],
+    vragen:['Mogen losse scheidingswanden of akoestische cabines worden geplaatst?','Is het opsplitsen van een kamer in twee kleinere ruimtes bouwkundig en contractueel toegestaan?']},
+  'Routing & ontvangst':{
+    probleem:'De indeling laat mogelijk geen echte scheiding toe tussen bezoekers en de interne werkvloer.',
+    oplossingen:['Loop de route die een bezoeker aflegt bewust door bij de bezichtiging: waar komt hij binnen, waar loopt hij langs en wat ziet hij. Pas dan wordt duidelijk of de routing structureel werkt.','Als de indeling geen scheiding toelaat, is dat een bouwkundig gegeven dat inrichting niet oplost. Beoordeel of dit een reden is om af te haken vóórdat je tekent.'],
+    vragen:['Mag de entree of ontvangstzone worden aangepast en wie draagt de kosten?','Is het aanbrengen van naamborden of wegwijzers op gevel, deur of in de hal toegestaan?']},
+  'Merkbeleving & uitstraling':{
+    probleem:'Het pand heeft een eigen karakter dat de beleving van jullie bedrijf kan versterken of tegenwerken.',
+    oplossingen:['Het karakter van een pand, materialen, hoogte, lichttoetreding, architectuur, is iets dat je niet wegwerkt met inrichting. Laat beoordelen of dat karakter versterkt of bestreden moet worden. Dat bepaalt direct het benodigde inrichtingsbudget.','Vraag altijd wat de terugleververplichtingen zijn bij einde van de huur. Aanpassingen kunnen bij vertrek worden teruggedraaid, wat de uiteindelijke kosten sterk beïnvloedt.'],
+    vragen:['Moeten aanpassingen zoals schilderwerk of wandbekleding worden teruggedraaid bij vertrek?','Wat mag er structureel worden aangepast aan wanden, plafond en vloer?']},
+  'Daglicht & comfort':{
+    probleem:'Daglicht, akoestiek of klimaat zijn onvoldoende voor een gezonde en productieve werkomgeving.',
+    oplossingen:['Extra daglicht via een aanpassing aan het pand is soms bespreekbaar, maar hangt af van bouwkundige mogelijkheden. Vraag het uit vóórdat je aannames doet.','Akoestische problemen zijn goed te verbeteren met plafond- en wandpanelen en vloerkleden, zonder in de constructie te hoeven breken (€150 tot €400 per m²). Dit wordt structureel onderschat.','Een verouderde klimaatinstallatie betekent comfortproblemen én hogere energiekosten via servicekosten. Vraag dit altijd na vóór ondertekening.'],
+    vragen:['Wat is de leeftijd van de klimaatinstallatie en wie is verantwoordelijk voor onderhoud en vervanging?','Is extra daglicht via een aanpassing bouwtechnisch mogelijk en bespreekbaar?']},
+  'Hergebruik meubilair':{
+    probleem:'Het bestaande meubilair is niet of nauwelijks bruikbaar in het nieuwe pand, wat extra investeringen vraagt.',
+    oplossingen:['Vaak kan er meer mee dan je verwacht, zeker als de nieuwe indeling anders is. Laat dit beoordelen aan de hand van de plattegrond vóórdat je beslissingen neemt.','Tweedehands of opgeknapte kantoormeubelen zijn een serieus alternatief: 30 tot 50% goedkoper bij vergelijkbare kwaliteit.'],
+    vragen:['Wat zijn de exacte afmetingen per ruimte, zodat op tekening kan worden beoordeeld of bestaand meubilair past?']},
+  'Inrichtingsimpact & kosten':{
+    probleem:'De bouwkundige staat, de installaties of het budget brengen risico\'s mee die de haalbaarheid kunnen raken.',
+    oplossingen:['Een bouwkundige keuring vóór ondertekening kost €300 tot €800 en voorkomt duizenden euro\'s aan verrassingen achteraf.','Een huurvrije periode van 1 tot 3 maanden is bij een contract van 3 jaar of langer standaard bespreekbaar, maar alleen vóórdat je tekent.','Instapklaar vraagt €300 tot €600 per m², een kaal pand €800 tot €1.500 per m². Stem het budget hierop af.'],
+    vragen:['Vraag schriftelijk vast te leggen in welke staat het pand wordt opgeleverd vóór de sleuteldatum.','Is een huurvrije periode of financiële bijdrage voor verbouwing bespreekbaar en zo ja, onder welke voorwaarden?']},
+  'Praktische randvoorwaarden':{
+    probleem:'Praktische beperkingen of een te strak contract kunnen de dagelijkse werking of toekomstige vrijheid belemmeren.',
+    oplossingen:['Contractuele ruimte, vroeger stoppen, voorkeur op aangrenzende ruimte, beperkte huurstijging, is alleen vóór ondertekening te bedingen. Laat het contract beoordelen door een makelaar of jurist.','Laadpalen voor elektrische auto\'s worden door steeds meer verhuurders aangeboden bij een nieuw contract. Vraag het expliciet uit.'],
+    vragen:['Wat is de exacte opzegtermijn en zijn er boetes bij vervroegd vertrek?','Is het overdragen van het contract aan een andere partij toegestaan als de situatie verandert?']}
+};
+
+const catColors = {
+  'Bezetting & groei':'#D4860B','Werkwijze & zonering':'#1D9E75',
+  'Routing & ontvangst':'#D85A30','Merkbeleving & uitstraling':'#7F77DD',
+  'Daglicht & comfort':'#BA7517','Hergebruik meubilair':'#639922',
+  'Inrichtingsimpact & kosten':'#D4537E','Praktische randvoorwaarden':'#888780'
+};
+
+// ── STATE ──────────────────────────────────────────────────────────────────────
+let current = 0;
+let answers = new Array(questions.length).fill(null);
+
+// ── BUDGET ─────────────────────────────────────────────────────────────────────
+function getBudgetOordeel(){
+  const oppIdx  = answers[questions.findIndex(q=>q.isOppervlak)];
+  const afwIdx  = answers[questions.findIndex(q=>q.isAfwerking)];
+  const instIdx = answers[questions.findIndex(q=>q.isInstallatie)];
+  const budIdx  = answers[questions.findIndex(q=>q.isBudget)];
+  if(oppIdx==null||afwIdx==null||instIdx==null||budIdx==null) return null;
+  const opp=oppervlakteData[oppIdx].mid;
+  const afwQ=questions.find(q=>q.isAfwerking);
+  const instQ=questions.find(q=>q.isInstallatie);
+  const budOpt=questions.find(q=>q.isBudget).opts[budIdx];
+  if(budOpt.totaal===null) return{oordeel:'Onbekend',kleur:'#888780',bg:'#f0efec',tekst:'Het budget is nog niet vastgesteld. Zonder budgetkader is het niet mogelijk te beoordelen of dit pand financieel haalbaar is.'};
+  const minPerM2=afwQ.opts[afwIdx].minPerM2+instQ.opts[instIdx].extraPerM2;
+  const maxPerM2=afwQ.opts[afwIdx].maxPerM2+instQ.opts[instIdx].extraPerM2;
+  const minNodig=opp*minPerM2,maxNodig=opp*maxPerM2,budget=budOpt.totaal;
+  const perM2=Math.round(budget/opp),budLabel=budOpt.t;
+  if(budget<minNodig*0.6) return{oordeel:'Ontoereikend',kleur:'#711B0C',bg:'#FAECE7',tekst:'Met een budget van '+budLabel+' voor circa '+opp+' m² heb je ongeveer '+fmtPerM2(perM2)+' per m² beschikbaar. Nodig is naar schatting '+fmtPerM2(minPerM2)+' tot '+fmtPerM2(maxPerM2)+' per m² ('+fmtBedrag(minNodig)+' tot '+fmtBedrag(maxNodig)+'). Het budget dekt te weinig. Breng het benodigde bedrag in kaart vóórdat je tekent.'};
+  if(budget<minNodig) return{oordeel:'Krap',kleur:'#633806',bg:'#FAEEDA',tekst:'Met een budget van '+budLabel+' voor circa '+opp+' m² heb je '+fmtPerM2(perM2)+' per m² beschikbaar. Nodig is naar schatting '+fmtPerM2(minPerM2)+' tot '+fmtPerM2(maxPerM2)+' per m². Het budget is krap en laat weinig ruimte voor tegenvallers.'};
+  if(budget<=maxNodig*1.2) return{oordeel:'Toereikend',kleur:'#085041',bg:'#E1F5EE',tekst:'Met een budget van '+budLabel+' voor circa '+opp+' m² is er naar verwachting voldoende ruimte voor een goede basisinrichting. Houd rekening met onvoorziene kosten.'};
+  return{oordeel:'Ruim voldoende',kleur:'#085041',bg:'#E1F5EE',tekst:'Het beschikbare budget van '+budLabel+' biedt voor dit pand (circa '+opp+' m²) ruimte voor een uitgebreide en kwalitatieve inrichting.'};
+}
+
+// ── START ──────────────────────────────────────────────────────────────────────
+function startScan(){
+  document.getElementById('intro-section').style.display='none';
+  document.getElementById('form-section').classList.add('active');
+  document.getElementById('progress-wrap').style.display='block';
+  document.getElementById('nav-bar').style.display='flex';
+  renderQuestion();
+}
+
+// ── RENDER ─────────────────────────────────────────────────────────────────────
+function renderQuestion(){
+  const q=questions[current],total=questions.length;
+  document.getElementById('progress-fill').style.width=Math.round((current/total)*100)+'%';
+  document.getElementById('progress-label').textContent=(current+1)+' / '+total;
+  document.getElementById('section-label').textContent=q.section;
+  document.getElementById('btn-prev').disabled=current===0;
+  document.getElementById('btn-next').textContent=current===total-1?'Resultaat bekijken →':'Volgende →';
+
+  const isMulti=q.multi,currentAns=answers[current];
+  let html='<div class="question-block">';
+  html+='<div class="question-label">'+q.q+'</div>';
+  if(q.clarify) html+='<div class="question-clarify">'+q.clarify+'</div>';
+  if(q.sub)     html+='<div class="question-sub">'+q.sub+'</div>';
+  if(q.hasEmployeeInput){
+    html+='<div class="input-row"><label for="emp-count">Huidig aantal medewerkers</label><input type="number" id="emp-count" min="1" max="9999" placeholder="bijv. 12" value="'+employeeCount+'"><span>medewerkers</span></div>';
+    html+='<div class="question-sub">Welke groei verwacht je per jaar?</div>';
+  }
+  if(isMulti) html+='<div class="multi-note" style="margin-top:8px">Meerdere antwoorden mogelijk</div>';
+  html+='<div class="pill-grid" style="margin-top:14px">';
+  q.opts.forEach((o,i)=>{
+    const sel=isMulti?((currentAns&&currentAns.includes(i))?'selected':''):(currentAns===i?'selected':'');
+    html+='<button class="pill '+sel+'" onclick="selectOpt('+i+')">'+o.t+'</button>';
+  });
+  html+='</div></div>';
+  document.getElementById('question-area').innerHTML=html;
+  if(q.hasEmployeeInput){
+    const inp=document.getElementById('emp-count');
+    if(inp) inp.addEventListener('input',function(){employeeCount=this.value;});
+  }
+}
+
+function selectOpt(i){
+  const q=questions[current];
+  if(q.multi){
+    if(!answers[current]) answers[current]=[];
+    const idx=answers[current].indexOf(i);
+    if(idx===-1) answers[current].push(i); else answers[current].splice(idx,1);
+    if(answers[current].length===0) answers[current]=null;
+  } else { answers[current]=i; }
+  renderQuestion();
+}
+
+function getScore(qIdx){
+  const q=questions[qIdx],ans=answers[qIdx];
+  if(ans==null) return 0;
+  if(q.isBudget) return q.opts[ans].s;
+  if(q.multi){if(q.multiLogic){const c=ans.length;return c>=3?3:c===2?2:1;}return ans.reduce((s,i)=>s+q.opts[i].s,0);}
+  return q.opts[ans].s;
+}
+
+function navigate(dir){
+  if(dir===1&&(answers[current]==null)) return;
+  if(dir===1&&current===questions.length-1){showResult();return;}
+  current+=dir;renderQuestion();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function toggleCard(id){
+  const body=document.getElementById('body-'+id),btn=document.getElementById('tbtn-'+id);
+  if(body.classList.contains('open')){body.classList.remove('open');btn.textContent='Aanvullend advies';}
+  else{body.classList.add('open');btn.textContent='Sluit advies';}
+}
+
+// ── RESULTAAT ──────────────────────────────────────────────────────────────────
+function showResult(){
+  document.getElementById('form-section').style.display='none';
+  document.getElementById('nav-bar').style.display='none';
+  document.getElementById('progress-wrap').style.display='none';
+
+  const catScores={},catMax={};
+  questions.forEach((q,i)=>{
+    if(!catScores[q.cat]){catScores[q.cat]=0;catMax[q.cat]=0;}
+    catScores[q.cat]+=getScore(i);catMax[q.cat]+=3;
+  });
+
+  const budgetOordeel=getBudgetOordeel();
+  const aandacht=[],goed=[];
+  Object.entries(catScores).forEach(([cat,score])=>{
+    const ratio=score/catMax[cat];
+    if(ratio<0.67) aandacht.push({cat,score,max:catMax[cat],ratio});
+    else goed.push(cat);
+  });
+  aandacht.sort((a,b)=>a.ratio-b.ratio);
+
+  const perRol={inrichting:[],bouw:[],vastgoed:[]};
+  aandacht.forEach(a=>{const rol=catRol[a.cat]||'inrichting';perRol[rol].push(a);});
+
+  const el=employeeCount?' voor een team van '+employeeCount+' medewerkers':'';
+  let vc,vb,vt,vx;
+  if(aandacht.length===0){vc='#085041';vb='#E1F5EE';vt='✓ Sterke match';vx='Dit pand scoort goed op alle onderzochte onderdelen'+el+'. Er zijn geen kritische aandachtspunten.';}
+  else if(aandacht.length<=3){vc='#633806';vb='#FAEEDA';vt='Potentieel aanwezig, met aandachtspunten';vx='Dit pand biedt kansen'+el+', maar er zijn '+aandacht.length+' aandachtspunten die je vóór ondertekening moet onderzoeken.';}
+  else{vc='#711B0C';vb='#FAECE7';vt='Kritische risico\'s gesignaleerd';vx='Dit pand vraagt'+el+' serieuze aandacht op '+aandacht.length+' vlakken. Teken pas als je voor elk punt een concrete oplossing of heldere afspraak hebt.';}
+
+  const aandachtLabels=aandacht.map(a=>a.cat).join(', ')||'Geen';
+  const goedLabels=goed.join(', ')||'Geen';
+
+  let html='<div class="result-wrap">';
+  html+='<div class="result-eyebrow">Jouw resultaat</div>';
+  html+='<h2 class="result-title">Kantoorlocatiescan<br>afgerond</h2>';
+
+  html+='<div class="verdict-banner" style="background:'+vb+';border:1.5px solid '+vc+'30">';
+  html+='<h3 style="color:'+vc+'">'+vt+'</h3>';
+  html+='<p style="color:'+vc+'cc">'+vx+'</p></div>';
+
+  html+='<div class="result-pills">';
+  html+='<span class="result-pill" style="background:#f0efec;color:#888">22 vragen beantwoord</span>';
+  html+='<span class="result-pill" style="background:#FAECE7;color:#711B0C">'+aandacht.length+' aandachtspunten</span>';
+  html+='<span class="result-pill" style="background:#E1F5EE;color:#085041">'+goed.length+' goed geregeld</span>';
+  html+='</div>';
+
+  // Budget
+  if(budgetOordeel){
+    html+='<div class="res-section-label">Budget beoordeling</div>';
+    html+='<div class="budget-block" style="background:'+budgetOordeel.bg+';border:1.5px solid '+budgetOordeel.kleur+'30">';
+    html+='<div class="budget-oordeel" style="color:'+budgetOordeel.kleur+'">'+budgetOordeel.oordeel+'</div>';
+    html+='<div class="budget-tekst" style="color:'+budgetOordeel.kleur+'cc">'+budgetOordeel.tekst+'</div></div>';
+  }
+
+  // Aandachtspunten
+  if(aandacht.length>0){
+    html+='<div class="res-section-label">Aandachtspunten</div>';
+    aandacht.forEach((a,idx)=>{
+      const col=catColors[a.cat]||'#D4860B',data=adviceData[a.cat];
+      html+='<div class="aandacht-card"><div class="aandacht-card-top">';
+      html+='<div class="aandacht-tag" style="color:'+col+'">'+a.cat+'</div>';
+      html+='<div class="aandacht-probleem">'+data.probleem+'</div>';
+      html+='<button class="toggle-btn" id="tbtn-'+idx+'" onclick="toggleCard('+idx+')" style="color:'+col+';border-color:'+col+'30;background:'+col+'12">Aanvullend advies</button>';
+      html+='</div><div class="aandacht-body" id="body-'+idx+'">';
+      html+='<div style="height:1px;background:#f0f0ee;margin-bottom:14px"></div>';
+      html+='<div class="advice-block-label">Wat kun je doen</div><ul class="advice-list">';
+      data.oplossingen.forEach(o=>{html+='<li>'+o+'</li>';});
+      html+='</ul><div class="advice-block-label">Vragen om te stellen vóór ondertekening</div><ul class="advice-list">';
+      data.vragen.forEach(v=>{html+='<li>'+v+'</li>';});
+      html+='</ul></div></div>';
+    });
+  }
+
+  // Goed geregeld
+  if(goed.length>0){
+    html+='<div class="res-section-label" style="margin-top:28px">Goed geregeld</div>';
+    html+='<ul class="ok-list">';
+    goed.forEach(cat=>{html+='<li><div class="ok-dot"></div>'+cat+'</li>';});
+    html+='</ul>';
+  }
+
+  // Wie pakt wat op
+  html+='<div class="res-section-label" style="margin-top:28px">Wie pakt wat op?</div>';
+  html+='<p style="font-size:13px;color:var(--ink-soft);line-height:1.65;margin-bottom:16px">Op basis van de uitslag zijn er aandachtspunten voor verschillende vakgebieden.</p>';
+  ['inrichting','bouw','vastgoed'].forEach(rol=>{
+    const items=perRol[rol],rl=rolLabels[rol];
+    if(items.length===0&&rol!=='inrichting') return;
+    html+='<div class="vakgebied-card"><div class="vakgebied-header">';
+    html+='<div class="vakgebied-dot" style="background:'+rl.kleur+'"></div>';
+    html+='<div class="vakgebied-titles"><div class="vakgebied-title">'+rl.label+'</div><div class="vakgebied-partij">'+rl.partij+'</div></div></div>';
+    if(items.length>0){
+      html+='<ul class="vakgebied-list">';
+      items.forEach(a=>{html+='<li>'+a.cat+'</li>';});
+      html+='</ul>';
+    } else {
+      html+='<p style="font-size:13px;color:#ccc;padding-left:20px">Geen aandachtspunten op dit vlak.</p>';
+    }
+    html+='</div>';
+  });
+
+  // CTA
+  html+='<div class="cta-block">';
+  html+='<div class="cta-title">Vraag een gratis adviesgesprek aan</div>';
+  html+='<p>Op basis van de uitslag beoordelen we samen welke stappen als eerste nodig zijn en welke partijen daarbij betrokken moeten worden.</p>';
+  html+='<div id="form-area">';
+  html+='<div class="cta-form-row">';
+  html+='<input class="cta-input" type="text" id="f-naam" placeholder="Jouw naam">';
+  html+='<input class="cta-input" type="email" id="f-email" placeholder="E-mailadres">';
+  html+='</div>';
+  html+='<div class="cta-form-row">';
+  html+='<input class="cta-input" type="text" id="f-bedrijf" placeholder="Bedrijfsnaam" style="flex:1">';
+  html+='<button class="cta-btn" id="cta-btn" onclick="verstuurFormulier(\''+aandachtLabels.replace(/'/g,"\\'")+'\',\''+goedLabels.replace(/'/g,"\\'")+'\')">Plan een gesprek</button>';
+  html+='</div>';
+  html+='</div>';
+  html+='<div id="form-success" style="display:none" class="form-success">Bedankt! Je aanvraag is ontvangen. Ik neem zo snel mogelijk contact met je op.</div>';
+  html+='</div>';
+
+  html+='<div class="reset-row"><button class="reset-btn" onclick="resetScan()">Scan opnieuw invullen</button></div>';
+  html+='</div>';
+
+  document.getElementById('result-section').innerHTML=html;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ── FORMSPREE ──────────────────────────────────────────────────────────────────
+function resetScan(){
+  current=0;answers=new Array(questions.length).fill(null);employeeCount='';
+  document.getElementById('result-section').innerHTML='';
+  document.getElementById('form-section').classList.add('active');
+  document.getElementById('form-section').style.display='';
+  document.getElementById('progress-wrap').style.display='block';
+  document.getElementById('nav-bar').style.display='flex';
+  renderQuestion();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+<script>
+// Alleen verzending en contactgegevens; bestaande scanlogica blijft intact.
+const completionEndpoint = 'https://formspree.io/f/mgaobzng';
+const consultationEndpoint = 'https://formspree.io/f/moejzlpo';
+const sessionKey = 'svdh-locatiescan-delivery-v1';
+let delivery;
+try { delivery = JSON.parse(sessionStorage.getItem(sessionKey)); } catch (_) {}
+function newDelivery() {
+  return {id: crypto.randomUUID(), completion: 'idle', consultation: 'idle'};
+}
+if (!delivery || !delivery.id) delivery = newDelivery();
+function saveDelivery() {
+  try { sessionStorage.setItem(sessionKey, JSON.stringify(delivery)); } catch (_) {}
+}
+let contactDetails = null;
+let scanReport = null;
+const originalStartScan = startScan;
+startScan = function () {
+  const form = document.getElementById('scan-contact');
+  if (!form.reportValidity()) return;
+  contactDetails = {
+    naam: document.getElementById('scan-naam').value.trim(),
+    email: document.getElementById('scan-email').value.trim(),
+    bedrijf: document.getElementById('scan-bedrijf').value.trim()
+  };
+  if (!contactDetails.naam || !contactDetails.bedrijf) return;
+  originalStartScan();
+};
+async function sendScan(endpoint, payload) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 20000);
+  try {
+    const response = await fetch(endpoint, {
+      method: 'POST', headers: {'Content-Type':'application/json', Accept:'application/json'},
+      body: JSON.stringify(payload), signal: controller.signal
+    });
+    if (!response.ok) throw new Error('Formspree HTTP ' + response.status);
+  } finally { clearTimeout(timer); }
+}
+function buildScanReport() {
+  const result = document.getElementById('result-section').cloneNode(true);
+  result.querySelectorAll('.cta-block,.reset-row,button').forEach(el => el.remove());
+  // textContent includes the collapsed additional advice as well.
+  result.querySelectorAll('p,li,h2,h3,div').forEach(el => el.append('\n'));
+  const cards = [...document.querySelectorAll('#result-section .aandacht-card')];
+  const steps = cards.map(card => ({
+    onderwerp: card.querySelector('.aandacht-tag').textContent,
+    stappen: [...card.querySelectorAll('.advice-list:first-of-type li')].map(el => el.textContent)
+  }));
+  const disciplines = [...document.querySelectorAll('#result-section .vakgebied-card')].map(el => ({
+    discipline: el.querySelector('.vakgebied-title').textContent,
+    partij: el.querySelector('.vakgebied-partij').textContent,
+    aandachtspunten: [...el.querySelectorAll('li')].map(li => li.textContent)
+  }));
+  return {
+    scansessie: delivery.id, afgerond_op: new Date().toISOString(),
+    medewerkers: employeeCount || 'Niet ingevuld',
+    vragen_en_antwoorden: questions.map((q,i) => ({
+      vraag: q.q, toelichting: q.clarify || q.sub || '',
+      antwoorden: (Array.isArray(answers[i]) ? answers[i] : [answers[i]]).map(a => q.opts[a]?.t || 'Niet ingevuld')
+    })),
+    volledig_persoonlijk_advies: result.textContent.trim(),
+    aanbevolen_eerste_stappen: steps,
+    geadviseerde_disciplines: disciplines
+  };
+}
+const originalShowResult = showResult;
+showResult = function () {
+  originalShowResult(); // Always show advice before attempting delivery.
+  scanReport = buildScanReport();
+  if (contactDetails) {
+    document.getElementById('f-naam').value = contactDetails.naam;
+    document.getElementById('f-email').value = contactDetails.email;
+    document.getElementById('f-bedrijf').value = contactDetails.bedrijf;
+  }
+  if (delivery.consultation !== 'idle') {
+    document.getElementById('cta-btn').disabled = true;
+    document.getElementById('cta-btn').textContent = delivery.consultation === 'sent' ? 'Aanvraag verstuurd' : 'Aanvraag al verwerkt of verzending onzeker';
+  }
+  if (!contactDetails || answers.some(a => a == null) || delivery.completion !== 'idle') return;
+  const state = delivery;
+  state.completion = 'attempted'; saveDelivery();
+  sendScan(completionEndpoint, {
+    _subject: 'Kantoorlocatiescan afgerond', type: 'Afronding',
+    ...contactDetails, ...scanReport
+  }).then(() => { state.completion = 'sent'; if (delivery === state) saveDelivery(); })
+    .catch(() => { state.completion = 'failed'; if (delivery === state) saveDelivery(); console.warn('Afrondingsmelding niet bevestigd; advies blijft beschikbaar. Geen automatische herverzending.'); });
+};
+function verstuurFormulier() {
+  if (delivery.consultation !== 'idle' || !scanReport) return;
+  const naam = document.getElementById('f-naam').value.trim();
+  const emailField = document.getElementById('f-email');
+  emailField.required = true;
+  if (!naam || !emailField.reportValidity()) return;
+  const bedrijf = document.getElementById('f-bedrijf').value.trim();
+  const state = delivery;
+  state.consultation = 'attempted'; saveDelivery();
+  const btn = document.getElementById('cta-btn');
+  btn.disabled = true; btn.textContent = 'Bezig…';
+  sendScan(consultationEndpoint, {
+    _subject: 'Gratis adviesgesprek — Kantoorlocatiescan', type: 'Adviesgesprek',
+    naam, email: emailField.value.trim(), bedrijf,
+    aangevraagd_op: new Date().toISOString(), ...scanReport
+  }).then(() => {
+    state.consultation = 'sent'; if (delivery !== state) return; saveDelivery();
+    document.getElementById('form-area').style.display = 'none';
+    document.getElementById('form-success').style.display = 'block';
+  }).catch(() => {
+    state.consultation = 'failed'; if (delivery !== state) return; saveDelivery();
+    btn.textContent = 'Verzending niet bevestigd';
+    alert('We konden de verzending niet bevestigen. Om dubbele aanvragen te voorkomen versturen we niet opnieuw. Neem contact op via fred@studiovanderhorst.nl. Je scanadvies blijft beschikbaar.');
+  });
+}
+const originalResetScan = resetScan;
+resetScan = function () {
+  delivery = newDelivery(); saveDelivery(); scanReport = null;
+  originalResetScan();
+};
+
+</script>
+</body>
+</html>
