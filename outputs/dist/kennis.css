@@ -4,3 +4,5 @@
 .article-toc ol{column-gap:48px}.article-toc li{break-inside:avoid;padding-right:8px}
 
 .knowledge-card img.knowledge-image--contain{object-fit:contain;background:#fff}.article-image img.knowledge-image--contain{object-fit:contain;aspect-ratio:auto;max-height:850px;background:#fff}
+
+.article-actions{display:flex;flex-direction:column;align-items:flex-start;gap:16px;margin-top:28px}.article-actions .text-link{margin:0;min-height:44px;max-width:100%;white-space:normal}
