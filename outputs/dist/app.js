@@ -5,11 +5,6 @@ function closeMenu(){menuButton.setAttribute('aria-expanded','false');navigation
 menuButton.addEventListener('click',()=>{const expanded=menuButton.getAttribute('aria-expanded')==='true';menuButton.setAttribute('aria-expanded',String(!expanded));navigation.classList.toggle('is-open',!expanded);});
 navigation.addEventListener('click',event=>{if(event.target.closest('a'))closeMenu();});
 document.addEventListener('keydown',event=>{if(event.key==='Escape'&&menuButton.getAttribute('aria-expanded')==='true'){closeMenu();menuButton.focus();}});
-const dialog=document.querySelector('#prototype');
-let dialogReturnFocus=null;
-document.addEventListener('click',event=>{const link=event.target.closest('[data-destination]');if(!link)return;event.preventDefault();dialogReturnFocus=link.closest('#navigation')?(getComputedStyle(menuButton).display!=='none'?menuButton:link.closest('details')?.querySelector('summary')||link):link;if(link.closest('#navigation'))closeMenu();document.querySelector('#dialog-message').textContent=link.dataset.message||'Deze bestemming wordt in een volgende stap uitgewerkt. Je blijft in de lokale preview.';document.querySelector('.destination').textContent=link.dataset.destination;dialog.showModal();},true);
-dialog.addEventListener('close',()=>dialogReturnFocus?.focus());
-document.querySelectorAll('.dialog-close,.dialog-back').forEach(button=>button.addEventListener('click',()=>dialog.close()));
 const moments=[...document.querySelectorAll('.moment')];
 function setMoment(panel,open){panel.classList.toggle('is-active',open);panel.querySelector('.moment-toggle').setAttribute('aria-expanded',String(open));panel.querySelector('.moment-detail').hidden=!open;panel.querySelector('.moment-indicator').textContent=open?'−':'+';}
 moments.forEach(panel=>panel.querySelector('.moment-toggle').addEventListener('click',()=>{const opening=!panel.classList.contains('is-active');moments.forEach(other=>setMoment(other,other===panel&&opening));}));
