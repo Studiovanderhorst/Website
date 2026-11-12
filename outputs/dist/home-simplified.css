@@ -51,3 +51,8 @@
 .home-fred-review blockquote p{font-size:1.05rem;line-height:1.6;color:var(--ink)}
 .home-fred-review figcaption{margin-top:14px;font-size:.875rem;line-height:1.5;color:var(--ink)}
 .home-fred-review figcaption span{display:block;font-size:.75rem;color:var(--muted);margin-top:4px}
+
+/* Homepage lockup: kleuren en lettergewicht volgens aangeleverd logo. */
+.home-simplified .logo-copy{border-left-color:#805a3e;color:#805a3e}
+.home-simplified .logo-studio{color:#8c6c54;font-weight:400}
+.home-simplified .logo-name{color:#805a3e;font-weight:700}
