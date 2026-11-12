@@ -360,3 +360,8 @@ html{scroll-padding-top:calc(var(--site-header-height) + 20px)}
 
 /* De locatiescan houdt zijn eigen vormgeving binnen de vaste websitenavigatie. */
 .location-scan-frame{display:block;width:100%;height:calc(100vh - var(--site-header-height));height:calc(100dvh - var(--site-header-height));border:0;background:#fff}
+
+/* Logotekst op alle pagina’s volgens het aangeleverde kleurvoorbeeld. */
+.logo-copy{border-left-color:#805a3e;color:#805a3e;font-family:Arial,Helvetica,sans-serif}
+.logo-studio{color:#8c6c54;font-weight:400}
+.logo-name{color:#805a3e;font-weight:700}
